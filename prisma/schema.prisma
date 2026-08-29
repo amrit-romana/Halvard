@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+enum ProjectStatus {
+  SCOPING
+  IN_PROGRESS
+  REVIEW
+  LIVE
+  PAUSED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+  OVERDUE
+}
+
+enum MeetingStatus {
+  NEW
+  SCHEDULED
+  DONE
+  CANCELLED
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  name         String
+  passwordHash String?
+  role         Role          @default(CUSTOMER)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  projects     Project[]
+  apiKeys      ApiKey[]
+  inviteTokens InviteToken[]
+}
+
+model Project {
+  id             String        @id @default(cuid())
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String
+  name           String
+  status         ProjectStatus @default(SCOPING)
+  amountDueCents Int           @default(0)
+  currency       String        @default("usd")
+  paymentStatus  PaymentStatus @default(UNPAID)
+  stripeSessionId String?
+  notes          String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model ApiKey {
+  id         String    @id @default(cuid())
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  label      String
+  encrypted  String
+  lastFour   String
+  revoked    Boolean   @default(false)
+  requestedAt DateTime?
+  createdAt  DateTime  @default(now())
+}
+
+model InviteToken {
+  id        String    @id @default(cuid())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  token     String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model MeetingRequest {
+  id          String        @id @default(cuid())
+  name        String
+  email       String
+  company     String?
+  message     String?
+  preferredAt DateTime?
+  status      MeetingStatus @default(NEW)
+  createdAt   DateTime      @default(now())
+}
+
+model EmailLog {
+  id        String   @id @default(cuid())
+  to        String
+  subject   String
+  body      String
+  sentVia   String
+  createdAt DateTime @default(now())
+}

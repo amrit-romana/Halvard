@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f5f3ed;
+  color: #15171c;
+  background-image: radial-gradient(rgba(21, 23, 28, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+::selection {
+  background-color: #0a6b4f;
+  color: #ffffff;
+}
+
+.container-page {
+  @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+}
+
+.container-page-wide {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-signal px-6 py-3 text-sm font-semibold text-white shadow-soft transition-all duration-200 ease-signal hover:-translate-y-0.5 hover:shadow-lift active:translate-y-0;
+}
+
+.btn-ink {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper shadow-soft transition-all duration-200 ease-signal hover:-translate-y-0.5 hover:shadow-lift active:translate-y-0;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border-[1.5px] border-ink/15 bg-transparent px-6 py-3 text-sm font-semibold text-ink transition-all duration-200 ease-signal hover:-translate-y-0.5 hover:border-ink/30 hover:bg-white/60 active:translate-y-0;
+}
+
+.btn-sm {
+  @apply px-4 py-2 text-xs;
+}
+
+.section-heading {
+  @apply font-display text-4xl font-extrabold tracking-tight leading-[1.05] sm:text-5xl md:text-6xl;
+}
+
+.section-heading-sm {
+  @apply font-display text-3xl font-bold tracking-tight leading-[1.1] sm:text-4xl;
+}
+
+.eyebrow {
+  @apply inline-flex items-center gap-2 rounded-full border border-ink/10 bg-white/70 px-4 py-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-ink/50 shadow-softer;
+}
+
+.card {
+  @apply rounded-xl3 border border-ink/10 bg-white/70 shadow-softer;
+}
+
+.rationale {
+  @apply max-w-[62ch] border-l-2 border-ink/20 py-1 pl-5 text-[15px] leading-relaxed text-ink/60;
+}
+
+/* signal-trace: the recurring brand motif — a line closing on a node */
+.trace {
+  @apply my-6 flex items-center;
+}
+.trace::before {
+  content: "";
+  width: 34px;
+  height: 2px;
+  background: #0a6b4f;
+}
+.trace::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(21, 23, 28, 0.12);
+  margin-left: 8px;
+}
+.trace-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0a6b4f;
+  margin-left: -2px;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 34s linear infinite;
+  will-change: transform;
+}
+.marquee-row:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.85);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.dot {
+  animation: blink 1.4s infinite ease-in-out both;
+}
+.dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.dot:nth-child(2) {
+  animation-delay: -0.16s;
+}

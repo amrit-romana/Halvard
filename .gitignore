@@ -6,3 +6,4 @@ out
 .env
 dev.db
 dev.db-journal
+tsconfig.tsbuildinfo

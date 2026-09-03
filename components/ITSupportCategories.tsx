@@ -1,68 +1,62 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Headset, Cloud, Wifi, Phone, ShieldCheck, Puzzle, type LucideIcon } from "lucide-react";
 import { revealItem, RevealGroup } from "./Reveal";
 
-const categories = [
+const categories: { icon: LucideIcon; name: string; body: string }[] = [
   {
-    emoji: "🖥️",
+    icon: Headset,
     name: "Managed IT & Support",
     body: "IT service desk, field service, procurement, and mobile device management — a team on call for the day-to-day.",
-    color: "text-cobalt",
-    border: "border-l-cobalt",
   },
   {
-    emoji: "☁️",
+    icon: Cloud,
     name: "Cloud & Infrastructure",
     body: "Private and public cloud, Microsoft 365, and data centre migration handled end to end.",
-    color: "text-signal-ink",
-    border: "border-l-signal",
   },
   {
-    emoji: "📡",
+    icon: Wifi,
     name: "Network & Connectivity",
     body: "Managed Wi-Fi, secure networking, business internet, and SD-WAN — the backbone everything else runs on.",
-    color: "text-violet",
-    border: "border-l-violet",
   },
   {
-    emoji: "📞",
+    icon: Phone,
     name: "Unified Communications",
     body: "Teams calling, VoIP, telephony, and video conferencing set up and kept running.",
-    color: "text-amber",
-    border: "border-l-amber",
   },
   {
-    emoji: "🔒",
+    icon: ShieldCheck,
     name: "Cybersecurity & Compliance",
     body: "Risk assessment, security hardening, and awareness training that keeps your business audit-ready.",
-    color: "text-ember",
-    border: "border-l-ember",
   },
   {
-    emoji: "🧩",
+    icon: Puzzle,
     name: "Continuity & Consulting",
     body: "Disaster recovery, IT consulting, digital transformation, and managed print — planned for, not scrambled for.",
-    color: "text-slate",
-    border: "border-l-slate",
   },
 ];
 
 export default function ITSupportCategories() {
   return (
     <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
-      {categories.map((c) => (
-        <motion.div
-          key={c.name}
-          variants={revealItem}
-          whileHover={{ y: -4 }}
-          className={`card flex h-full flex-col gap-2 border-l-4 p-6 ${c.border}`}
-        >
-          <span className="text-2xl">{c.emoji}</span>
-          <p className={`font-display text-base font-bold ${c.color}`}>{c.name}</p>
-          <p className="text-sm leading-relaxed text-ink/60">{c.body}</p>
-        </motion.div>
-      ))}
+      {categories.map((c) => {
+        const Icon = c.icon;
+        return (
+          <motion.div
+            key={c.name}
+            variants={revealItem}
+            whileHover={{ y: -4 }}
+            className="card flex h-full flex-col gap-3 border-l-4 border-l-ink p-6"
+          >
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl2 bg-ink/8">
+              <Icon className="h-5 w-5 text-ink" strokeWidth={1.75} />
+            </span>
+            <p className="font-display text-base font-bold text-ink">{c.name}</p>
+            <p className="text-sm leading-relaxed text-ink/60">{c.body}</p>
+          </motion.div>
+        );
+      })}
     </RevealGroup>
   );
 }

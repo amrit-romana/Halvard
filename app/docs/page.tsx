@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Target, MailCheck, Receipt, LayoutTemplate, CalendarClock, Plug } from "lucide-react";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
@@ -11,37 +12,37 @@ export const metadata: Metadata = {
 const capabilities = [
   {
     name: "Pipeline & Leads",
-    emoji: "📈",
+    icon: Target,
     detail:
       "Captures, enriches, and routes leads, then follows up with anyone who's gone quiet before they slip away.",
   },
   {
     name: "Follow-ups & Email",
-    emoji: "✉️",
+    icon: MailCheck,
     detail:
       "Sends the sequence of nudges a human would send — timed, on-brand, and persistent — until someone replies.",
   },
   {
     name: "Invoicing & Payments",
-    emoji: "💸",
+    icon: Receipt,
     detail:
       "Watches your accounting tool and chases overdue invoices automatically, on a cadence you control.",
   },
   {
     name: "Landing Pages & Sites",
-    emoji: "🖥️",
+    icon: LayoutTemplate,
     detail:
       "Designs and publishes campaign pages, on-brand and live in hours instead of a design sprint.",
   },
   {
     name: "Daily Operations",
-    emoji: "📅",
+    icon: CalendarClock,
     detail:
       "Creates reminders, fills cancellations, and gets a head start on tomorrow's tasks tonight.",
   },
   {
     name: "Integrations",
-    emoji: "🔌",
+    icon: Plug,
     detail:
       "Connects Google Workspace, your CRM, accounting, and messaging tools so everything stays in sync.",
   },
@@ -98,7 +99,9 @@ export default function DocsPage() {
               {capabilities.map((c, i) => (
                 <Reveal key={c.name} delay={i * 0.05}>
                   <li className="flex gap-4 rounded-xl2 border border-ink/10 bg-white/60 p-4 shadow-softer">
-                    <span className="text-xl">{c.emoji}</span>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl2 bg-ink/8">
+                      <c.icon className="h-4 w-4 text-ink" strokeWidth={1.75} />
+                    </span>
                     <div>
                       <p className="font-medium">{c.name}</p>
                       <p className="mt-1 text-sm text-ink/60">{c.detail}</p>
@@ -140,10 +143,10 @@ export default function DocsPage() {
                 <p className="text-sm text-ink/70">
                   Need help? Reach us at{" "}
                   <a
-                    href="mailto:support@halvard.ai"
+                    href="mailto:connectwithhalvard@gmail.com"
                     className="font-medium text-ink underline underline-offset-4"
                   >
-                    support@halvard.ai
+                    connectwithhalvard@gmail.com
                   </a>
                   .
                 </p>

@@ -52,7 +52,7 @@ export default function LoginForm() {
         required
         className="rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-signal/50"
       />
-      {error && <p className="text-sm text-ember">{error}</p>}
+      {error && <p className="text-sm font-semibold text-ink">{error}</p>}
       <button type="submit" className="btn-primary mt-1" disabled={loading}>
         {loading ? "Signing in…" : "Log in"}
       </button>

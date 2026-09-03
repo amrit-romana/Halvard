@@ -35,8 +35,8 @@ export default function ContactPage() {
           </Reveal>
           <p className="mt-6 text-center text-xs text-ink/40">
             Prefer email? Reach us directly at{" "}
-            <a href="mailto:hello@halvard.ai" className="underline underline-offset-4">
-              hello@halvard.ai
+            <a href="mailto:connectwithhalvard@gmail.com" className="underline underline-offset-4">
+              connectwithhalvard@gmail.com
             </a>
           </p>
         </div>

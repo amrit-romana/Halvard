@@ -88,7 +88,7 @@ export default function NewCustomerForm() {
           />
         </div>
       </div>
-      {error && <p className="text-sm text-ember">{error}</p>}
+      {error && <p className="text-sm font-semibold text-ink">{error}</p>}
       <button type="submit" className="btn-primary" disabled={loading}>
         {loading ? "Creating…" : "Create & send invite"}
       </button>

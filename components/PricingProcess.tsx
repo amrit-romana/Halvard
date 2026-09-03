@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Puzzle, Plug, Radar, ClipboardList } from "lucide-react";
 import { revealItem, RevealGroup } from "./Reveal";
 
 const steps = [
@@ -24,22 +25,22 @@ const steps = [
 
 const factors = [
   {
-    emoji: "🧩",
+    icon: Puzzle,
     title: "How many pillars are involved",
     body: "One process automated end to end costs less than several wired together.",
   },
   {
-    emoji: "🔌",
+    icon: Plug,
     title: "Tools and systems to connect",
     body: "More integrations mean more to build, test, and keep in sync.",
   },
   {
-    emoji: "📡",
+    icon: Radar,
     title: "Ongoing monitoring needed",
     body: "Some systems run and report back; others need a closer eye while they bed in.",
   },
   {
-    emoji: "📋",
+    icon: ClipboardList,
     title: "How manual it is today",
     body: "The more manual steps we're replacing, the more there is to design around.",
   },
@@ -66,7 +67,9 @@ export default function PricingProcess({ compact = false }: { compact?: boolean 
           <RevealGroup className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
             {factors.map((f) => (
               <motion.div key={f.title} variants={revealItem} className="card p-5">
-                <span className="text-xl">{f.emoji}</span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl2 bg-ink/8">
+                  <f.icon className="h-4 w-4 text-ink" strokeWidth={1.75} />
+                </span>
                 <p className="mt-3 text-sm font-semibold leading-snug">{f.title}</p>
                 <p className="mt-1.5 text-xs leading-relaxed text-ink/55">{f.body}</p>
               </motion.div>

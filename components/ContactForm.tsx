@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CheckCircle2 } from "lucide-react";
 
 const TIME_WINDOWS = ["Morning (9–12)", "Afternoon (12–3)", "Late afternoon (3–5:30)"];
 
@@ -71,7 +72,7 @@ export default function ContactForm() {
   if (status === "sent") {
     return (
       <div className="card p-8 text-center">
-        <span className="text-3xl">✅</span>
+        <CheckCircle2 className="mx-auto h-9 w-9 text-signal-ink" strokeWidth={1.75} />
         <h3 className="mt-4 font-display text-xl font-bold">Got it, thanks.</h3>
         <p className="mt-2 text-sm text-ink/60">
           We&apos;ll get back to you within a day
@@ -170,7 +171,7 @@ export default function ContactForm() {
         />
       </div>
 
-      {error && <p className="text-sm text-ember">{error}</p>}
+      {error && <p className="text-sm font-semibold text-ink">{error}</p>}
       <button type="submit" className="btn-primary" disabled={status === "loading"}>
         {status === "loading"
           ? "Sending…"

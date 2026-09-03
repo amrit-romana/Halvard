@@ -82,14 +82,14 @@ export default function PortalActions({
           {project.name}
         </p>
         <div className="flex flex-wrap items-center gap-3">
-          <span className="rounded-full bg-cobalt/10 px-3 py-1 text-sm font-medium text-cobalt">
+          <span className="rounded-full bg-ink/8 px-3 py-1 text-sm font-medium text-ink">
             {statusLabel[project.status] ?? project.status}
           </span>
           <span
             className={`rounded-full px-3 py-1 text-sm font-medium ${
               project.paymentStatus === "PAID"
                 ? "bg-signal/10 text-signal-ink"
-                : "bg-ember/10 text-ember"
+                : "border border-ink/20 text-ink"
             }`}
           >
             {project.paymentStatus === "PAID" ? "Paid" : `$${amount} due`}
@@ -100,7 +100,7 @@ export default function PortalActions({
             <button onClick={payNow} className="btn-primary btn-sm" disabled={payLoading}>
               {payLoading ? "Redirecting…" : `Pay $${amount} now`}
             </button>
-            {payError && <p className="mt-2 text-xs text-ember">{payError}</p>}
+            {payError && <p className="mt-2 text-xs font-semibold text-ink">{payError}</p>}
           </div>
         )}
       </div>

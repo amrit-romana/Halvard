@@ -2,13 +2,14 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { Target, MailCheck, Receipt, LayoutTemplate, CalendarClock, Wrench, type LucideIcon } from "lucide-react";
 import BrandIcon from "./BrandIcon";
 import BrowserFrame from "./BrowserFrame";
 
 type Feature = {
   key: string;
   label: string;
-  emoji: string;
+  icon: LucideIcon;
   heading: string;
   body: string;
   points: string[];
@@ -21,7 +22,7 @@ const features: Feature[] = [
   {
     key: "leads",
     label: "Pipeline & Leads",
-    emoji: "📈",
+    icon: Target,
     heading: "A pipeline that never goes cold.",
     body: "Halvard captures, enriches, and routes leads automatically, then reaches back out to anyone who's gone quiet — before they slip away entirely.",
     points: [
@@ -30,12 +31,12 @@ const features: Feature[] = [
       "Drafts a low-pressure re-engagement message",
     ],
     tools: ["HubSpot", "Salesforce", "Pipedrive"],
-    accent: "bg-cobalt",
+    accent: "bg-ink",
   },
   {
     key: "follow-ups",
     label: "Follow-ups & Email",
-    emoji: "✉️",
+    icon: MailCheck,
     heading: "Every thread, followed all the way through.",
     body: "Halvard sends the sequence of nudges a human would send — timed, on-brand, and persistent — until someone actually replies.",
     points: [
@@ -44,12 +45,12 @@ const features: Feature[] = [
       "Escalates to you when it needs a judgment call",
     ],
     tools: ["Gmail", "Slack", "WhatsApp"],
-    accent: "bg-ember",
+    accent: "bg-ink",
   },
   {
     key: "invoicing",
     label: "Invoicing & Payments",
-    emoji: "💸",
+    icon: Receipt,
     heading: "Invoices that chase themselves.",
     body: "Halvard watches every invoice you send and follows up automatically the moment one goes overdue — on a tone and cadence you set.",
     points: [
@@ -63,7 +64,7 @@ const features: Feature[] = [
   {
     key: "landing-pages",
     label: "Landing Pages & Sites",
-    emoji: "🖥️",
+    icon: LayoutTemplate,
     heading: "A new page, live before the campaign is.",
     body: "Halvard designs and publishes landing pages for new campaigns and offers — on-brand, fast, and ready to update the moment something changes.",
     points: [
@@ -72,12 +73,12 @@ const features: Feature[] = [
       "Updated the moment copy or pricing changes",
     ],
     tools: ["Google Drive", "Notion", "Calendly"],
-    accent: "bg-violet",
+    accent: "bg-ink",
   },
   {
     key: "daily-ops",
     label: "Daily Operations",
-    emoji: "📅",
+    icon: CalendarClock,
     heading: "Tomorrow, planned tonight.",
     body: "Halvard fills cancellations, syncs calendars, and gets a head start on tomorrow's work the night before — so mornings start ready.",
     points: [
@@ -86,12 +87,12 @@ const features: Feature[] = [
       "Preps tomorrow's tasks before you clock in",
     ],
     tools: ["Google Calendar", "Calendly", "Asana"],
-    accent: "bg-amber",
+    accent: "bg-ink",
   },
   {
     key: "built-to-order",
     label: "Built to Order",
-    emoji: "🛠️",
+    icon: Wrench,
     heading: "No fixed shape by design.",
     body: "If it's repetitive, rule-based, and eating your week, Halvard can probably automate it — even if it doesn't fit neatly into a pillar above.",
     points: [
@@ -100,7 +101,7 @@ const features: Feature[] = [
       "Reviewed and refined as your business changes",
     ],
     tools: ["Zapier", "Notion", "Trello"],
-    accent: "bg-slate",
+    accent: "bg-ink",
     dashed: true,
   },
 ];
@@ -108,31 +109,35 @@ const features: Feature[] = [
 export default function FeatureTabs() {
   const [active, setActive] = useState(features[0].key);
   const feature = features.find((f) => f.key === active)!;
+  const Icon = feature.icon;
 
   return (
     <div>
       <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-        {features.map((f) => (
-          <button
-            key={f.key}
-            onClick={() => setActive(f.key)}
-            className={`relative rounded-full px-4 py-2.5 text-sm font-semibold transition-colors sm:px-5 ${
-              active === f.key ? "text-paper" : "text-ink/60 hover:text-ink"
-            }`}
-          >
-            {active === f.key && (
-              <motion.span
-                layoutId="feature-pill"
-                className="absolute inset-0 rounded-full bg-ink"
-                transition={{ type: "spring", stiffness: 400, damping: 32 }}
-              />
-            )}
-            <span className="relative flex items-center gap-1.5">
-              <span>{f.emoji}</span>
-              {f.label}
-            </span>
-          </button>
-        ))}
+        {features.map((f) => {
+          const TabIcon = f.icon;
+          return (
+            <button
+              key={f.key}
+              onClick={() => setActive(f.key)}
+              className={`relative rounded-full px-4 py-2.5 text-sm font-semibold transition-colors sm:px-5 ${
+                active === f.key ? "text-paper" : "text-ink/60 hover:text-ink"
+              }`}
+            >
+              {active === f.key && (
+                <motion.span
+                  layoutId="feature-pill"
+                  className="absolute inset-0 rounded-full bg-ink"
+                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                />
+              )}
+              <span className="relative flex items-center gap-1.5">
+                <TabIcon className="h-4 w-4" strokeWidth={1.75} />
+                {f.label}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       <div className="mt-12 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
@@ -182,7 +187,16 @@ export default function FeatureTabs() {
             <BrowserFrame title={`app.halvard.com/${feature.key}`}>
               <div className="flex min-h-[260px] flex-col justify-center gap-3 bg-canvas p-6">
                 <div className="flex items-center gap-3 rounded-xl2 bg-white p-4 shadow-softer">
-                  <span className="text-2xl">{feature.emoji}</span>
+                  <span
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl2 ${
+                      feature.accent === "bg-signal" ? "bg-signal/10" : "bg-ink/8"
+                    }`}
+                  >
+                    <Icon
+                      className={`h-5 w-5 ${feature.accent === "bg-signal" ? "text-signal-ink" : "text-ink"}`}
+                      strokeWidth={1.75}
+                    />
+                  </span>
                   <div className="flex-1">
                     <p className="text-sm font-semibold">{feature.heading}</p>
                     <p className="mt-1 text-xs text-ink/50">

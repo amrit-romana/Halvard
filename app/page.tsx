@@ -8,6 +8,7 @@ import Testimonials from "@/components/Testimonials";
 import DashboardMockup from "@/components/DashboardMockup";
 import NotificationStack from "@/components/NotificationStack";
 import PhoneMockup from "@/components/PhoneMockup";
+import CrossCheckMockup from "@/components/CrossCheckMockup";
 import Stats from "@/components/Stats";
 import CTASection from "@/components/CTASection";
 import Reveal from "@/components/Reveal";
@@ -114,6 +115,29 @@ export default function Home() {
           </Reveal>
           <Reveal delay={0.1} y={32}>
             <NotificationStack />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Feature: cross-checking before it acts */}
+      <section className="py-16 sm:py-24">
+        <div className="container-page grid items-center gap-12 lg:grid-cols-2">
+          <Reveal className="order-2 lg:order-1" y={32}>
+            <CrossCheckMockup />
+          </Reveal>
+          <Reveal className="order-1 lg:order-2">
+            <span className="eyebrow">Checks before it acts</span>
+            <h2 className="section-heading-sm mt-5">
+              Cross-references every tool before it follows up.
+            </h2>
+            <p className="mt-4 max-w-md text-ink/60">
+              Halvard reads inbox, calendar, and CRM together before deciding
+              a client needs a nudge — so it never chases someone who already
+              replied or already has a meeting booked.
+            </p>
+            <Link href="/how-it-works" className="btn-ghost mt-6 inline-flex">
+              See how it works
+            </Link>
           </Reveal>
         </div>
       </section>

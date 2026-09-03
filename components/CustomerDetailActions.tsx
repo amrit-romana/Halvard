@@ -162,7 +162,7 @@ export default function CustomerDetailActions({
         <div className="flex items-center justify-between">
           <p className="font-mono text-xs uppercase tracking-wide text-ink/40">Account</p>
           {!hasPassword && (
-            <span className="rounded-full bg-amber/10 px-2.5 py-1 text-xs font-medium text-amber">
+            <span className="rounded-full border border-ink/20 px-2.5 py-1 text-xs font-medium text-ink">
               Invite not yet accepted
             </span>
           )}
@@ -190,7 +190,7 @@ export default function CustomerDetailActions({
               ) : (
                 <button
                   onClick={() => revokeKey(k.id)}
-                  className="text-xs font-medium text-ember hover:underline"
+                  className="text-xs font-semibold text-ink underline underline-offset-2"
                 >
                   Revoke
                 </button>

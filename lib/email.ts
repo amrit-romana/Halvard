@@ -2,7 +2,10 @@ import "server-only";
 import { Resend } from "resend";
 import { prisma } from "./db";
 
-const FROM = process.env.EMAIL_FROM ?? "Halvard <onboarding@halvard.ai>";
+// Note: Resend requires sending from a domain you've verified with them —
+// a plain gmail.com address will be rejected once RESEND_API_KEY is set.
+// Until then, EMAIL_FROM is only used for the console/EmailLog dev fallback.
+const FROM = process.env.EMAIL_FROM ?? "Halvard <connectwithhalvard@gmail.com>";
 
 export async function sendEmail({
   to,

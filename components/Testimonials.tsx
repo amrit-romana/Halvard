@@ -16,14 +16,14 @@ const testimonials = [
       "Placeholder testimonial — replace with a real, permission-given quote before launch.",
     name: "Placeholder Name",
     role: "Placeholder Business",
-    color: "bg-cobalt",
+    color: "bg-ink",
   },
   {
     quote:
       "Placeholder testimonial — replace with a real, permission-given quote before launch.",
     name: "Placeholder Name",
     role: "Placeholder Business",
-    color: "bg-slate",
+    color: "bg-ink",
   },
 ];
 

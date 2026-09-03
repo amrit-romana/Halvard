@@ -11,17 +11,14 @@ const config: Config = {
     extend: {
       opacity: fullOpacityScale,
       colors: {
+        // The full palette, deliberately: black, signal green, and the
+        // paper/background neutrals. No other accent colors in the system.
         ink: "#15171C",
         paper: "#F5F3ED",
         canvas: "#FFFFFF",
         "surface-2": "#ECE9DF",
         signal: "#0A6B4F",
         "signal-ink": "#073F2E",
-        ember: "#E8572E",
-        cobalt: "#2C5CE0",
-        violet: "#7C5CFC",
-        amber: "#B8790E",
-        slate: "#4A5A63",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "Inter", "sans-serif"],

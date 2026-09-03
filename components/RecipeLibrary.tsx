@@ -35,28 +35,31 @@ export default function RecipeLibrary() {
         className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
         stagger={0.06}
       >
-        {filtered.map((r) => (
-          <motion.div
-            key={r.title}
-            variants={revealItem}
-            whileHover={{ y: -6 }}
-            className="card flex flex-col gap-3 p-6"
-          >
-            <div className="flex items-center justify-between">
-              <span
-                className={`w-fit rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${r.color}`}
-              >
-                {r.tag}
-              </span>
-              <span className="text-2xl">{r.emoji}</span>
-            </div>
-            <h3 className="font-display text-xl font-semibold leading-snug">
-              {r.title}
-            </h3>
-            <p className="text-sm leading-relaxed text-ink/60">{r.body}</p>
-            <button className="btn-ghost btn-sm mt-2 w-fit">Use this recipe</button>
-          </motion.div>
-        ))}
+        {filtered.map((r) => {
+          const Icon = r.icon;
+          return (
+            <motion.div
+              key={r.title}
+              variants={revealItem}
+              whileHover={{ y: -6 }}
+              className={`card flex flex-col gap-3 p-6 ${r.dashed ? "border-dashed" : ""}`}
+            >
+              <div className="flex items-center justify-between">
+                <span
+                  className={`w-fit rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${r.color}`}
+                >
+                  {r.tag}
+                </span>
+                <Icon className="h-5 w-5 text-ink/70" strokeWidth={1.75} />
+              </div>
+              <h3 className="font-display text-xl font-semibold leading-snug">
+                {r.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-ink/60">{r.body}</p>
+              <button className="btn-ghost btn-sm mt-2 w-fit">Use this recipe</button>
+            </motion.div>
+          );
+        })}
       </RevealGroup>
     </div>
   );

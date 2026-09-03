@@ -4,11 +4,11 @@ import { prisma } from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 const statusColor: Record<string, string> = {
-  SCOPING: "bg-slate/10 text-slate",
-  IN_PROGRESS: "bg-cobalt/10 text-cobalt",
-  REVIEW: "bg-amber/10 text-amber",
+  SCOPING: "bg-ink/5 text-ink/60",
+  IN_PROGRESS: "bg-ink/10 text-ink",
+  REVIEW: "border border-ink/25 text-ink",
   LIVE: "bg-signal/10 text-signal-ink",
-  PAUSED: "bg-ember/10 text-ember",
+  PAUSED: "bg-ink/5 text-ink/35",
 };
 
 export default async function CustomersPage() {
@@ -57,7 +57,7 @@ export default async function CustomersPage() {
                   className={`rounded-full px-2.5 py-1 text-xs font-medium ${
                     project?.paymentStatus === "PAID"
                       ? "bg-signal/10 text-signal-ink"
-                      : "bg-ember/10 text-ember"
+                      : "border border-ink/20 text-ink"
                   }`}
                 >
                   {project?.paymentStatus ?? "—"}

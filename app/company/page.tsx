@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Target, ShieldCheck, Puzzle } from "lucide-react";
 import Stats from "@/components/Stats";
 import CTASection from "@/components/CTASection";
 import Reveal, { RevealGroup } from "@/components/Reveal";
@@ -12,17 +13,17 @@ export const metadata: Metadata = {
 
 const values = [
   {
-    emoji: "🎯",
+    icon: Target,
     title: "Proactive, not passive",
     body: "A good system doesn't wait to be asked twice. Halvard is built to notice what needs attention before you do.",
   },
   {
-    emoji: "🔒",
+    icon: ShieldCheck,
     title: "Private by default",
     body: "Your client data, your pricing, your conversations — never used to train models, never sold, never shared.",
   },
   {
-    emoji: "🧩",
+    icon: Puzzle,
     title: "Fits your stack",
     body: "We meet businesses where they already work instead of asking them to change tools.",
   },
@@ -63,7 +64,9 @@ export default function CompanyPage() {
           <RevealGroup className="mt-12 grid gap-5 sm:grid-cols-3" stagger={0.1}>
             {values.map((v) => (
               <div key={v.title} className="card flex flex-col gap-3 p-6">
-                <span className="text-2xl">{v.emoji}</span>
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl2 bg-ink/8">
+                  <v.icon className="h-5 w-5 text-ink" strokeWidth={1.75} />
+                </span>
                 <h3 className="font-display text-lg font-bold">{v.title}</h3>
                 <p className="text-sm leading-relaxed text-ink/60">{v.body}</p>
               </div>

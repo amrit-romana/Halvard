@@ -7,3 +7,5 @@ out
 dev.db
 dev.db-journal
 tsconfig.tsbuildinfo
+.vercel
+.env*

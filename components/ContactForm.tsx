@@ -86,7 +86,7 @@ export default function ContactForm() {
         <span className="flex h-14 w-14 items-center justify-center rounded-full bg-signal/10">
           <CheckCircle2 className="h-7 w-7 text-signal-ink" strokeWidth={1.75} />
         </span>
-        <h3 className="font-display text-xl font-bold">Got it, thanks.</h3>
+        <h3 className="font-display text-xl font-medium">Got it, thanks.</h3>
         <p className="max-w-xs text-sm text-ink/60">
           We&apos;ll get back to you within a business day
           {mode === "call" && date ? " to confirm the call." : "."}

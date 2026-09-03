@@ -55,7 +55,7 @@ export default function ITSupportCategories() {
             <span className={`flex h-10 w-10 items-center justify-center rounded-xl2 ${ACCENT_TINT}`}>
               <Icon className={`h-5 w-5 ${ACCENT_TEXT}`} strokeWidth={1.75} />
             </span>
-            <p className="font-display text-base font-bold text-ink">{c.name}</p>
+            <p className="font-display text-base font-medium text-ink">{c.name}</p>
             <p className="text-sm leading-relaxed text-ink/60">{c.body}</p>
           </motion.div>
         );

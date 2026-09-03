@@ -89,7 +89,7 @@ export default function BrandIcon({
       style={{ width: size, height: size, background: "#1B1611" }}
     >
       <span
-        className="font-display font-extrabold text-white"
+        className="font-display font-medium text-white"
         style={{ fontSize: size * 0.42 }}
       >
         {name.slice(0, 1)}

@@ -60,7 +60,7 @@ export default function SyncDiagram() {
         style={{ left: `${CENTER}%`, top: `${CENTER}%`, transform: "translate(-50%, -50%)" }}
       >
         <span className="animate-pulse-ring absolute inset-0 rounded-full border-2 border-signal" />
-        <span className="font-display text-2xl font-semibold text-paper">H</span>
+        <span className="font-display text-2xl font-medium text-paper">H</span>
       </div>
 
       {nodes.map((n, i) => {

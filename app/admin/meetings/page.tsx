@@ -8,7 +8,7 @@ export default async function MeetingsPage() {
 
   return (
     <div className="max-w-2xl">
-      <h1 className="font-display text-2xl font-bold">Meeting requests</h1>
+      <h1 className="font-display text-2xl font-medium">Meeting requests</h1>
       <div className="mt-6 flex flex-col gap-3">
         {meetings.length === 0 && <p className="text-sm text-ink/50">No requests yet.</p>}
         {meetings.map((m) => (

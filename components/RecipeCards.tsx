@@ -182,7 +182,7 @@ export default function RecipeCards({
                 <Icon className={`h-4 w-4 ${accent.text}`} strokeWidth={1.75} />
               </span>
             </div>
-            <h3 className="font-display text-xl font-bold leading-snug">
+            <h3 className="font-display text-xl font-medium leading-snug">
               {r.title}
             </h3>
             <p className="text-sm leading-relaxed text-ink/60">{r.body}</p>

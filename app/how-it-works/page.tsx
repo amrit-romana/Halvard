@@ -69,7 +69,7 @@ export default function HowItWorksPage() {
               }`}
             >
               <Reveal>
-                <span className="font-display text-6xl font-bold text-ink/10 sm:text-7xl">
+                <span className="font-display text-6xl font-medium text-ink/10 sm:text-7xl">
                   {step.number}
                 </span>
                 <h2 className="section-heading-sm mt-2">{step.title}</h2>

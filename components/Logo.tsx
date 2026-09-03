@@ -47,7 +47,10 @@ export default function Logo({
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
       <LogoMark size={size} variant={variant} />
       {showWord && (
-        <span className="font-display text-lg font-bold tracking-tight text-ink">
+        <span
+          className="font-display text-lg font-medium text-ink"
+          style={{ letterSpacing: "-0.01em" }}
+        >
           Halvard
         </span>
       )}

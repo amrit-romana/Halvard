@@ -67,7 +67,7 @@ export default function CompanyPage() {
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl2 bg-ink/8">
                   <v.icon className="h-5 w-5 text-ink" strokeWidth={1.75} />
                 </span>
-                <h3 className="font-display text-lg font-bold">{v.title}</h3>
+                <h3 className="font-display text-lg font-medium">{v.title}</h3>
                 <p className="text-sm leading-relaxed text-ink/60">{v.body}</p>
               </div>
             ))}

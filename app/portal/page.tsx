@@ -16,7 +16,7 @@ export default async function PortalPage() {
 
   return (
     <div className="max-w-2xl">
-      <h1 className="font-display text-2xl font-bold">Welcome back, {user?.name}.</h1>
+      <h1 className="font-display text-2xl font-medium">Welcome back, {user?.name}.</h1>
       <p className="mt-1 text-sm text-ink/60">Here's where your project stands.</p>
 
       {project ? (

@@ -26,7 +26,7 @@ export default function SetPasswordPage({
           </Link>
           {token ? (
             <>
-              <h1 className="font-display text-2xl font-semibold">
+              <h1 className="font-display text-2xl font-medium">
                 Set your password
               </h1>
               <p className="mt-2 text-sm text-ink/60">
@@ -36,7 +36,7 @@ export default function SetPasswordPage({
             </>
           ) : (
             <>
-              <h1 className="font-display text-2xl font-semibold">
+              <h1 className="font-display text-2xl font-medium">
                 Missing link
               </h1>
               <p className="mt-2 text-sm text-ink/60">

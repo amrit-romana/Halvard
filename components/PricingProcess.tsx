@@ -52,8 +52,8 @@ export default function PricingProcess({ compact = false }: { compact?: boolean 
       <RevealGroup className="grid gap-6 sm:grid-cols-3" stagger={0.1}>
         {steps.map((s) => (
           <motion.div key={s.number} variants={revealItem} className="card p-6">
-            <span className="font-display text-3xl font-bold text-ink/15">{s.number}</span>
-            <h3 className="mt-3 font-display text-lg font-bold">{s.title}</h3>
+            <span className="font-display text-3xl font-medium text-ink/15">{s.number}</span>
+            <h3 className="mt-3 font-display text-lg font-medium">{s.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-ink/60">{s.body}</p>
           </motion.div>
         ))}

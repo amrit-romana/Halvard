@@ -43,11 +43,19 @@ body {
 }
 
 .section-heading {
-  @apply font-display text-4xl font-extrabold tracking-tight leading-[1.05] sm:text-5xl md:text-6xl;
+  @apply font-display text-4xl font-medium leading-[0.95] tracking-[0.02em] sm:text-5xl md:text-6xl;
 }
 
 .section-heading-sm {
-  @apply font-display text-3xl font-bold tracking-tight leading-[1.1] sm:text-4xl;
+  @apply font-display text-3xl font-medium leading-[1.05] tracking-[0.02em] sm:text-4xl;
+}
+
+/* Every font-display element gets the same slight positive tracking,
+   matching the reference site's display type — set globally here so
+   the scattered one-off heading classNames across the app pick it up
+   without each needing an explicit tracking utility. */
+.font-display {
+  letter-spacing: 0.02em;
 }
 
 .eyebrow {

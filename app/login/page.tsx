@@ -18,7 +18,7 @@ export default function LoginPage() {
           <Link href="/" className="mb-6 inline-flex">
             <Logo size={26} />
           </Link>
-          <h1 className="font-display text-2xl font-semibold">Log in</h1>
+          <h1 className="font-display text-2xl font-medium">Log in</h1>
           <p className="mt-2 text-sm text-ink/60">
             Accounts are created by Halvard when your project starts —
             there&apos;s no public sign-up.

@@ -69,7 +69,9 @@ export default function Footer() {
         ))}
       </div>
       <div className="container-page-wide flex flex-col gap-2 border-t border-ink/10 py-6 text-xs text-ink/40 sm:flex-row sm:items-center sm:justify-between">
-        <p>© {new Date().getFullYear()} Halvard, Inc. All rights reserved.</p>
+        <p suppressHydrationWarning>
+          © {new Date().getFullYear()} Halvard, Inc. All rights reserved.
+        </p>
         <p className="font-mono uppercase tracking-wide">AI Automation Studio</p>
       </div>
     </footer>

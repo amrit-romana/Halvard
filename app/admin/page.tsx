@@ -19,18 +19,18 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="font-display text-2xl font-bold">Dashboard</h1>
+      <h1 className="font-display text-2xl font-medium">Dashboard</h1>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         <div className="card p-6">
           <p className="font-mono text-xs uppercase tracking-wide text-ink/40">Customers</p>
-          <p className="mt-2 font-display text-3xl font-bold">{customerCount}</p>
+          <p className="mt-2 font-display text-3xl font-medium">{customerCount}</p>
         </div>
         <div className="card p-6">
           <p className="font-mono text-xs uppercase tracking-wide text-ink/40">
             Outstanding
           </p>
-          <p className="mt-2 font-display text-3xl font-bold">
+          <p className="mt-2 font-display text-3xl font-medium">
             ${(totalDueCents / 100).toFixed(2)}
           </p>
           <p className="mt-1 text-xs text-ink/50">{unpaid.length} unpaid project(s)</p>
@@ -39,7 +39,7 @@ export default async function AdminDashboard() {
           <p className="font-mono text-xs uppercase tracking-wide text-ink/40">
             New requests
           </p>
-          <p className="mt-2 font-display text-3xl font-bold">{meetings.length}</p>
+          <p className="mt-2 font-display text-3xl font-medium">{meetings.length}</p>
           <Link href="/admin/meetings" className="mt-1 inline-block text-xs text-signal-ink underline">
             View meetings
           </Link>
@@ -47,7 +47,7 @@ export default async function AdminDashboard() {
       </div>
 
       <div className="mt-10 flex items-center justify-between">
-        <h2 className="font-display text-lg font-bold">Recent meeting requests</h2>
+        <h2 className="font-display text-lg font-medium">Recent meeting requests</h2>
         <Link href="/admin/customers/new" className="btn-primary btn-sm">
           Add customer
         </Link>

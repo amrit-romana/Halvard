@@ -92,7 +92,7 @@ export default function DocsPage() {
 
           <div id="capabilities" className="scroll-mt-24">
             <Reveal>
-              <h2 className="mt-16 font-display text-2xl font-bold">
+              <h2 className="mt-16 font-display text-2xl font-medium">
                 What you can automate
               </h2>
             </Reveal>
@@ -118,7 +118,7 @@ export default function DocsPage() {
 
           <div id="getting-started" className="scroll-mt-24">
             <Reveal>
-              <h2 className="mt-16 font-display text-2xl font-bold">
+              <h2 className="mt-16 font-display text-2xl font-medium">
                 Getting started
               </h2>
             </Reveal>

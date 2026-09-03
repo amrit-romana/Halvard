@@ -57,7 +57,7 @@ export default function ContactPage() {
             <div className="grid overflow-hidden rounded-xl4 border border-ink/10 bg-white shadow-lift lg:grid-cols-[0.9fr_1.1fr]">
               <div className="flex flex-col gap-8 border-b border-ink/10 bg-surface-2/60 px-7 py-9 sm:px-9 sm:py-11 lg:border-b-0 lg:border-r">
                 <div>
-                  <h2 className="font-display text-2xl font-bold leading-tight text-ink">
+                  <h2 className="font-display text-2xl font-medium leading-tight text-ink">
                     A real conversation, before any code gets written.
                   </h2>
                   <p className="mt-3 text-sm leading-relaxed text-ink/60">

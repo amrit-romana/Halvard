@@ -21,7 +21,7 @@ export default async function CustomersPage() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl font-bold">Customers</h1>
+        <h1 className="font-display text-2xl font-medium">Customers</h1>
         <Link href="/admin/customers/new" className="btn-primary btn-sm">
           Add customer
         </Link>

@@ -15,7 +15,7 @@ export default function Stats() {
     <RevealGroup className="grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-8">
       {stats.map((s) => (
         <motion.div key={s.label} variants={revealItem} className="text-center">
-          <p className="font-display text-3xl font-semibold text-ink sm:text-4xl">
+          <p className="font-display text-3xl font-medium text-ink sm:text-4xl">
             {s.value}
           </p>
           <p className="mt-1 text-xs text-ink/50 sm:text-sm">{s.label}</p>

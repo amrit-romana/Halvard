@@ -71,7 +71,7 @@ export default function PillarGrid({ linkTo }: { linkTo?: (key: string) => strin
             <span className={`flex h-10 w-10 items-center justify-center rounded-xl2 ${accent.tint}`}>
               <Icon className={`h-5 w-5 ${accent.text}`} strokeWidth={1.75} />
             </span>
-            <p className={`font-display text-base font-bold text-ink`}>{p.name}</p>
+            <p className={`font-display text-base font-medium text-ink`}>{p.name}</p>
             <p className="text-sm leading-relaxed text-ink/60">{p.body}</p>
           </motion.div>
         );

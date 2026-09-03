@@ -8,9 +8,9 @@ import Logo from "./Logo";
 
 const navLinks = [
   { label: "Automations", href: "/product" },
-  { label: "IT Support", href: "/it-support" },
   { label: "Integrations", href: "/integrations" },
   { label: "How it works", href: "/how-it-works" },
+  { label: "IT Support", href: "/it-support" },
   { label: "Recipes", href: "/recipes" },
   { label: "Contact", href: "/contact" },
 ];
@@ -52,7 +52,7 @@ export default function Header() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <Link href="/pricing" className="btn-primary btn-sm">
-            See Pricing
+            Pricing
           </Link>
         </div>
 
@@ -101,7 +101,7 @@ export default function Header() {
                 className="btn-primary mt-1"
                 onClick={() => setOpen(false)}
               >
-                See Pricing
+                Pricing
               </Link>
             </div>
           </motion.div>

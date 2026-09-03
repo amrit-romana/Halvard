@@ -1,0 +1,978 @@
+<meta charset="utf-8">
+<title>Halvard Brand Manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ===== Tokens — this document is light-only, by the same decision it
+     documents (no dark surfaces anywhere in the Halvard system), so the
+     palette below is painted explicitly rather than themed. ===== */
+  :root{
+    --ink:#15171C;
+    --paper:#F5F3ED;
+    --canvas:#FFFFFF;
+    --surface-2:#ECE9DF;
+    --signal:#0A6B4F;
+    --signal-ink:#073F2E;
+
+    --clay:#B5652F;
+    --denim:#3E6690;
+    --plum:#7A5688;
+    --moss:#4F7A6E;
+    --slate:#4A5D72;
+
+    --border:rgba(21,23,28,0.10);
+    --border-strong:rgba(21,23,28,0.20);
+    --text-muted:rgba(21,23,28,0.62);
+    --text-faint:rgba(21,23,28,0.40);
+
+    --font-display:'Schibsted Grotesk', system-ui, sans-serif;
+    --font-body:'Inter', system-ui, sans-serif;
+    --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+
+    --r-s:10px; --r-m:16px; --r-l:24px;
+    --ease:cubic-bezier(0.22,1,0.36,1);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{max-width:100%;display:block;}
+  a{color:inherit;}
+  ::selection{background:var(--signal);color:#fff;}
+
+  h1,h2,h3,h4{
+    font-family:var(--font-display);
+    font-weight:500;
+    letter-spacing:0.02em;
+    margin:0;
+    text-wrap:balance;
+  }
+  p{margin:0;}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--font-mono);
+    font-size:11px;font-weight:500;
+    text-transform:uppercase;letter-spacing:0.14em;
+    color:var(--text-faint);
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--signal);}
+
+  /* ===== Shell: sticky sidebar + content, mirrors the site's /docs layout ===== */
+  .shell{
+    display:grid;
+    grid-template-columns:240px minmax(0,1fr);
+    gap:56px;
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px 120px;
+  }
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr;}
+  }
+
+  .sidebar{display:none;}
+  @media (min-width:901px){
+    .sidebar{
+      display:block;
+      position:sticky;
+      top:24px;
+      align-self:start;
+      max-height:calc(100vh - 48px);
+      overflow-y:auto;
+      padding-top:8px;
+    }
+  }
+  .sidebar a{
+    display:block;
+    font-size:13.5px;
+    font-weight:500;
+    color:var(--text-muted);
+    padding:7px 10px;
+    border-radius:8px;
+    text-decoration:none;
+    transition:background .15s var(--ease), color .15s var(--ease);
+  }
+  .sidebar a:hover{background:rgba(21,23,28,0.05);color:var(--ink);}
+  .sidebar a.active{background:var(--canvas);color:var(--ink);box-shadow:0 1px 3px rgba(21,23,28,.06);}
+  .sidebar .group-label{
+    font-family:var(--font-mono);
+    font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--text-faint);
+    padding:14px 10px 6px;
+  }
+  .sidebar .group-label:first-child{padding-top:0;}
+
+  .mobile-nav{
+    display:flex;gap:6px;overflow-x:auto;
+    padding:14px 20px;
+    border-bottom:1px solid var(--border);
+    position:sticky;top:0;z-index:20;
+    background:rgba(245,243,237,0.92);
+    backdrop-filter:blur(8px);
+    scrollbar-width:none;
+  }
+  .mobile-nav::-webkit-scrollbar{display:none;}
+  @media (min-width:901px){.mobile-nav{display:none;}}
+  .mobile-nav a{
+    flex:0 0 auto;
+    font-size:12.5px;font-weight:600;
+    padding:7px 12px;border-radius:999px;
+    background:var(--canvas);border:1px solid var(--border);
+    text-decoration:none;color:var(--ink);white-space:nowrap;
+  }
+
+  main{min-width:0;}
+  section{padding:64px 0;border-bottom:1px solid var(--border);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{margin-bottom:32px;max-width:62ch;}
+  .section-head h2{font-size:28px;margin-top:10px;}
+  .section-head p{margin-top:12px;color:var(--text-muted);font-size:15px;line-height:1.6;}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease), transform .6s var(--ease);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  /* ===== Cover ===== */
+  .cover{
+    padding:76px 32px 56px;
+    max-width:1180px;margin:0 auto;
+    display:flex;flex-direction:column;gap:28px;
+  }
+  .cover-mark{display:flex;align-items:center;gap:14px;}
+  .cover-word{font-family:var(--font-display);font-weight:500;font-size:22px;letter-spacing:-0.01em;}
+  .cover h1{font-size:clamp(34px,5vw,54px);line-height:0.98;max-width:16ch;}
+  .cover-meta{
+    display:flex;flex-wrap:wrap;gap:10px 22px;
+    font-family:var(--font-mono);font-size:11.5px;color:var(--text-faint);
+    letter-spacing:.02em;
+  }
+  .cover-meta strong{color:var(--text-muted);font-weight:500;}
+  .cover-lede{max-width:56ch;font-size:16px;line-height:1.65;color:var(--text-muted);}
+
+  /* ===== Cards / grids ===== */
+  .card{
+    background:var(--canvas);
+    border:1px solid var(--border);
+    border-radius:var(--r-m);
+    box-shadow:0 4px 16px rgba(21,23,28,0.05);
+  }
+  .grid{display:grid;gap:16px;}
+  .grid-2{grid-template-columns:repeat(2,1fr);}
+  .grid-3{grid-template-columns:repeat(3,1fr);}
+  .grid-4{grid-template-columns:repeat(4,1fr);}
+  @media (max-width:700px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr 1fr;}}
+  @media (max-width:480px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+
+  /* ===== Logo section ===== */
+  .logo-story{
+    display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;
+    margin-bottom:40px;
+  }
+  @media (max-width:800px){.logo-story{grid-template-columns:1fr;}}
+  .logo-story p{color:var(--text-muted);font-size:15px;line-height:1.7;margin-top:12px;}
+  .mark-canvas{
+    background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-l);
+    display:flex;align-items:center;justify-content:center;padding:48px;
+  }
+
+  .asset-card{padding:22px;display:flex;flex-direction:column;gap:14px;}
+  .asset-preview{
+    height:120px;border-radius:var(--r-s);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .asset-preview.on-paper{background:var(--paper);}
+  .asset-preview.on-white{background:var(--canvas);border:1px solid var(--border);}
+  .asset-preview.on-ink{background:var(--ink);}
+  .asset-meta{display:flex;flex-direction:column;gap:2px;}
+  .asset-meta .name{font-weight:600;font-size:13.5px;}
+  .asset-meta .use{font-size:12px;color:var(--text-faint);}
+  .dl-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .dl-btn{
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:var(--font-body);font-weight:600;font-size:12.5px;
+    padding:8px 14px;border-radius:999px;border:1.5px solid var(--ink);
+    background:var(--ink);color:var(--paper);
+    cursor:pointer;transition:transform .15s var(--ease),box-shadow .15s var(--ease),opacity .15s;
+  }
+  .dl-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(21,23,28,.14);}
+  .dl-btn:active{transform:translateY(0);}
+  .dl-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+  .dl-btn.ghost{background:transparent;color:var(--ink);}
+  .dl-status{font-size:11.5px;color:var(--text-faint);min-height:14px;}
+  .dl-status.ok{color:var(--signal-ink);}
+  .dl-status.err{color:var(--clay);}
+
+  /* ===== Color swatches ===== */
+  .swatch{padding:0;overflow:hidden;}
+  .swatch-fill{height:88px;}
+  .swatch-body{padding:14px 16px;}
+  .swatch-body .name{font-weight:600;font-size:13.5px;}
+  .swatch-body .hex{font-family:var(--font-mono);font-size:11.5px;color:var(--text-faint);margin-top:2px;}
+  .swatch-body .use{font-size:12px;color:var(--text-muted);margin-top:8px;line-height:1.5;}
+  .rule-callout{
+    margin-top:20px;padding:18px 20px;border-radius:var(--r-m);
+    background:rgba(10,107,79,0.06);border:1px solid rgba(10,107,79,0.18);
+    font-size:14px;line-height:1.6;color:var(--ink);
+  }
+  .rule-callout b{color:var(--signal-ink);}
+
+  /* ===== Type ===== */
+  .type-sample{padding:28px 30px;}
+  .type-sample .tag{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.1em;}
+  .type-sample .big{font-family:var(--font-display);font-weight:500;letter-spacing:0.02em;font-size:40px;margin-top:10px;line-height:1;}
+  .type-sample .spec{margin-top:10px;font-family:var(--font-mono);font-size:11.5px;color:var(--text-faint);}
+  .type-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;}
+  @media (max-width:700px){.type-compare{grid-template-columns:1fr;}}
+  .type-compare .card{padding:24px;}
+  .type-compare .label{font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-faint);}
+  .type-compare .before .headline{font-family:var(--font-display);font-weight:800;letter-spacing:-0.02em;font-size:30px;margin-top:8px;}
+  .type-compare .after .headline{font-family:var(--font-display);font-weight:500;letter-spacing:0.02em;font-size:30px;margin-top:8px;}
+  .scale-row{display:flex;align-items:baseline;gap:18px;padding:14px 0;border-bottom:1px solid var(--border);}
+  .scale-row:last-child{border-bottom:none;}
+  .scale-row .tok{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);width:150px;flex:none;}
+  .scale-row .sample{font-family:var(--font-display);font-weight:500;letter-spacing:0.02em;}
+
+  /* ===== Icon tiles ===== */
+  .icon-tile{
+    width:40px;height:40px;border-radius:var(--r-s);
+    display:flex;align-items:center;justify-content:center;flex:none;
+  }
+  .icon-row{display:flex;align-items:center;gap:12px;padding:12px 16px;}
+  .icon-row .label{font-size:13px;font-weight:600;}
+
+  /* ===== Pillars / what-we-do ===== */
+  .pillar-card{padding:20px;border-left:4px solid;display:flex;flex-direction:column;gap:10px;}
+  .pillar-card .icon-tile{width:38px;height:38px;}
+  .pillar-card .name{font-family:var(--font-display);font-weight:500;letter-spacing:0.02em;font-size:15.5px;}
+  .pillar-card .body{font-size:13px;line-height:1.55;color:var(--text-muted);}
+  .pillar-card.dashed{border-left-style:dashed;}
+
+  .scenario-card{padding:22px;display:flex;flex-direction:column;gap:10px;}
+  .scenario-card .tag{font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-faint);}
+  .scenario-card h4{font-size:16px;margin-top:6px;}
+  .scenario-card p{font-size:13px;line-height:1.6;color:var(--text-muted);margin-top:6px;}
+
+  .recipe-chip{
+    display:flex;align-items:center;gap:10px;padding:12px 14px;
+    border-radius:var(--r-s);background:var(--canvas);border:1px solid var(--border);
+  }
+  .recipe-chip .t{font-size:13px;font-weight:600;}
+  .recipe-chip .b{font-size:12px;color:var(--text-faint);margin-top:2px;}
+
+  /* ===== Voice ===== */
+  .quote-block{
+    font-family:var(--font-display);font-weight:500;letter-spacing:0.02em;
+    font-size:24px;line-height:1.25;padding:22px 0;
+  }
+  .say-dont{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:700px){.say-dont{grid-template-columns:1fr;}}
+  .say-dont .card{padding:18px 20px;}
+  .say-dont .head{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;}
+  .say-dont .say .head{color:var(--signal-ink);}
+  .say-dont .dont .head{color:var(--clay);}
+  .say-dont ul{margin:12px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;}
+  .say-dont li{font-size:13.5px;line-height:1.5;padding-left:16px;position:relative;}
+  .say-dont li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;}
+
+  /* ===== Components ===== */
+  .btn-demo{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;font-weight:600;font-size:13.5px;}
+  .btn-demo.primary{background:var(--signal);color:#fff;}
+  .btn-demo.ink{background:var(--ink);color:var(--paper);}
+  .btn-demo.ghost{background:transparent;border:1.5px solid var(--border-strong);color:var(--ink);}
+  .browser-frame{border-radius:14px;border:1px solid var(--border);background:var(--canvas);overflow:hidden;box-shadow:0 12px 30px rgba(21,23,28,.08);}
+  .browser-chrome{display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid var(--border);background:var(--paper);}
+  .browser-chrome .dot{width:9px;height:9px;border-radius:50%;}
+  .status-pill{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:600;}
+
+  /* ===== Usage notes ===== */
+  .rules-list{display:flex;flex-direction:column;gap:0;}
+  .rule-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border);}
+  .rule-item:last-child{border-bottom:none;}
+  .rule-item .num{font-family:var(--font-mono);font-size:12px;color:var(--text-faint);flex:none;width:22px;padding-top:2px;}
+  .rule-item .txt strong{display:block;font-size:14px;margin-bottom:3px;}
+  .rule-item .txt span{font-size:13px;color:var(--text-muted);line-height:1.55;}
+
+  footer.doc-footer{
+    max-width:1180px;margin:0 auto;padding:40px 32px 60px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+    font-family:var(--font-mono);font-size:11.5px;color:var(--text-faint);
+  }
+</style>
+
+<div class="mobile-nav" id="mobileNav"></div>
+
+<div class="cover">
+  <div class="cover-mark reveal">
+    <div id="coverIcon"></div>
+    <span class="cover-word">Halvard</span>
+  </div>
+  <div class="reveal">
+    <span class="eyebrow"><span class="dot"></span>Brand Manual — v2</span>
+    <h1 style="margin-top:14px;">Automate the busywork.<br>Focus on what matters.</h1>
+  </div>
+  <p class="cover-lede reveal">This is the working reference for how Halvard looks, sounds, and behaves — rebuilt to match the site exactly as it's shipped today, not as it was first drafted. Everything here is pulled from the live design system: the same tokens, the same weights, the same six pillars.</p>
+  <div class="cover-meta reveal">
+    <span><strong>Category</strong> AI Automation Studio + IT Support referral</span>
+    <span><strong>Palette</strong> Ink · Paper · Signal (2 colors, by decision)</span>
+    <span><strong>Contact</strong> connectwithhalvard@gmail.com</span>
+    <span id="updatedStamp"></span>
+  </div>
+</div>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar"></nav>
+  <main id="main"></main>
+</div>
+
+<footer class="doc-footer">
+  <span>Halvard Brand Manual — reflects the production site, not an earlier draft.</span>
+  <span>Downloads render live in your browser — nothing here is a stock asset.</span>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============================================================
+     Design tokens (JS mirror of the CSS custom properties, used
+     for SVG/canvas generation so exports match the page exactly)
+     ============================================================ */
+  var T = {
+    ink:'#15171C', paper:'#F5F3ED', canvas:'#FFFFFF', surface2:'#ECE9DF',
+    signal:'#0A6B4F', signalInk:'#073F2E',
+    clay:'#B5652F', denim:'#3E6690', plum:'#7A5688', moss:'#4F7A6E', slate:'#4A5D72'
+  };
+
+  /* ============================================================
+     Icon mark — exact geometry from components/Logo.tsx's
+     LogoMark, viewBox 0 0 48 48.
+     ============================================================ */
+  function markInner(stroke, dot){
+    return '<rect x="15" y="9" width="6.5" height="30" rx="2.2" fill="'+stroke+'"/>'+
+      '<rect x="26.5" y="9" width="6.5" height="30" rx="2.2" fill="'+stroke+'"/>'+
+      '<line x1="17" y1="32" x2="31" y2="16" stroke="'+stroke+'" stroke-width="6" stroke-linecap="round"/>'+
+      '<circle cx="24" cy="24" r="3.6" fill="'+dot+'" stroke="'+stroke+'" stroke-width="2"/>';
+  }
+
+  var MARK_VARIANTS = {
+    ink:      { bg:T.ink,    stroke:T.paper, dot:T.signal, label:'Ink',      use:'Default — light backgrounds', preview:'on-paper' },
+    signal:   { bg:T.signal, stroke:T.paper, dot:T.signal, label:'Signal',   use:'Accent emphasis, sparingly',   preview:'on-paper' },
+    outline:  { bg:null,     stroke:T.ink,   dot:T.signal, label:'Outline',  use:'Letterheads, watermarks, mono use', preview:'on-white' },
+    reversed: { bg:null,     stroke:T.paper, dot:T.signal, label:'Reversed', use:'On ink or photographic backgrounds', preview:'on-ink' }
+  };
+
+  function markSVG(key, size){
+    var v = MARK_VARIANTS[key];
+    size = size || 512;
+    var r = size * 0.22;
+    var glyph = size * 0.68;
+    var off = (size - glyph) / 2;
+    var scale = glyph / 48;
+    var bgRect = v.bg ? '<rect width="'+size+'" height="'+size+'" rx="'+r+'" fill="'+v.bg+'"/>' : '';
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'">'+
+      bgRect+
+      '<g transform="translate('+off+' '+off+') scale('+scale+')">'+markInner(v.stroke, v.dot)+'</g>'+
+      '</svg>';
+  }
+
+  function markSVGEl(key, size){
+    var wrap = document.createElement('div');
+    wrap.innerHTML = markSVG(key, size);
+    return wrap.firstChild;
+  }
+
+  /* ============================================================
+     Downloads — standard browser save (Blob + object URL), since this
+     page runs as a normal site route rather than inside the claude.ai
+     artifact sandbox.
+     ============================================================ */
+  function initDownloads(){
+    // No capability handshake needed here — a real <a download> works
+    // directly. Nothing to wire up beyond the click handlers already
+    // bound per-button below.
+  }
+
+  function setStatus(el, text, kind){
+    el.textContent = text;
+    el.className = 'dl-status' + (kind ? ' ' + kind : '');
+  }
+
+  function saveFile(filename, data){
+    var blob = typeof data === 'string' ? new Blob([data], { type: 'image/svg+xml' }) : data;
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
+
+  function doSave(btn, statusEl, filename, dataPromiseOrValue){
+    btn.disabled = true;
+    var original = btn.textContent;
+    btn.textContent = 'Preparing…';
+    Promise.resolve(dataPromiseOrValue).then(function(data){
+      saveFile(filename, data);
+      setStatus(statusEl, 'Downloaded', 'ok');
+    }).catch(function(){
+      setStatus(statusEl, 'Couldn’t generate that file', 'err');
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = original;
+    });
+  }
+
+  /* ---- SVG export (icon marks — pure vector, no font dependency) ---- */
+  function bindSVGDownload(btn, key){
+    var statusEl = btn.closest('.asset-card').querySelector('.dl-status');
+    btn.addEventListener('click', function(){
+      var svg = markSVG(key, 512);
+      doSave(btn, statusEl, 'halvard-mark-' + key + '.svg', svg);
+    });
+  }
+
+  /* ---- PNG export (font-bearing lockups — rasterized so the exact
+     loaded webfont is captured pixel-for-pixel) ---- */
+  function rasterMark(ctx, key, x, y, size){
+    var v = MARK_VARIANTS[key];
+    if (v.bg){
+      ctx.fillStyle = v.bg;
+      roundRect(ctx, x, y, size, size, size*0.22);
+      ctx.fill();
+    }
+    var glyph = size*0.68, off=(size-glyph)/2, s=glyph/48;
+    ctx.save();
+    ctx.translate(x+off, y+off);
+    ctx.scale(s, s);
+    // bars
+    ctx.fillStyle = v.stroke;
+    roundRect(ctx, 15, 9, 6.5, 30, 2.2); ctx.fill();
+    roundRect(ctx, 26.5, 9, 6.5, 30, 2.2); ctx.fill();
+    // diagonal
+    ctx.strokeStyle = v.stroke; ctx.lineWidth = 6; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(17,32); ctx.lineTo(31,16); ctx.stroke();
+    // dot
+    ctx.beginPath(); ctx.arc(24,24,3.6,0,Math.PI*2);
+    ctx.fillStyle = v.dot; ctx.fill();
+    ctx.lineWidth = 2; ctx.strokeStyle = v.stroke; ctx.stroke();
+    ctx.restore();
+  }
+  function roundRect(ctx,x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.arcTo(x+w,y,x+w,y+h,r);
+    ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r);
+    ctx.arcTo(x,y,x+w,y,r);
+    ctx.closePath();
+  }
+
+  function waitForFont(){
+    if (!document.fonts) return Promise.resolve();
+    return Promise.all([
+      document.fonts.load('500 64px "Schibsted Grotesk"'),
+      document.fonts.load('600 64px "Inter"')
+    ]).catch(function(){});
+  }
+
+  function lockupPNG(kind){
+    // kind: 'primary' | 'reversed' | 'wordmark'
+    return waitForFont().then(function(){
+      var scale = 3;
+      var W = kind === 'wordmark' ? 640 : 760, H = 220;
+      var canvas = document.createElement('canvas');
+      canvas.width = W*scale; canvas.height = H*scale;
+      var ctx = canvas.getContext('2d');
+      ctx.scale(scale, scale);
+
+      var bg, iconKey, textColor;
+      if (kind === 'primary'){ bg = null; iconKey='ink'; textColor = T.ink; }
+      else if (kind === 'reversed'){ bg = T.ink; iconKey='reversed'; textColor = T.paper; }
+      else { bg = null; iconKey = null; textColor = T.ink; }
+
+      if (bg){ ctx.fillStyle = bg; ctx.fillRect(0,0,W,H); }
+
+      var iconSize = 128;
+      var padX = 32;
+      var textX = padX;
+      if (iconKey){
+        var iconY = (H - iconSize)/2;
+        rasterMark(ctx, iconKey, padX, iconY, iconSize);
+        textX = padX + iconSize + 22;
+      }
+      ctx.fillStyle = textColor;
+      ctx.font = '500 80px "Schibsted Grotesk", system-ui, sans-serif';
+      ctx.textBaseline = 'middle';
+      try { ctx.letterSpacing = '-0.8px'; } catch(e){}
+      ctx.fillText('Halvard', textX, H/2 + 2);
+
+      return new Promise(function(resolve){
+        canvas.toBlob(function(blob){ resolve(blob); }, 'image/png');
+      });
+    });
+  }
+
+  function bindPNGDownload(btn, kind, filename){
+    var statusEl = btn.closest('.asset-card').querySelector('.dl-status');
+    btn.addEventListener('click', function(){
+      doSave(btn, statusEl, filename, lockupPNG(kind));
+    });
+  }
+
+  /* ============================================================
+     Content data — mirrors the live site exactly
+     ============================================================ */
+  var PILLARS = [
+    { key:'leads',   name:'Pipeline & Leads',      accent:T.clay,  body:'Capture, enrich, route, and revive leads before they go cold.' },
+    { key:'follow',  name:'Follow-ups & Email',    accent:T.denim, body:'Sequences and nudges that keep every thread moving.' },
+    { key:'invoice', name:'Invoicing & Payments',  accent:T.signal,body:'Quotes, invoices, and the chase for a paid one.' },
+    { key:'pages',   name:'Landing Pages & Sites', accent:T.plum,  body:'Builds and updates the pages a campaign needs.' },
+    { key:'ops',     name:'Daily Operations',      accent:T.moss,  body:'The recurring tasks a business runs every day, on autopilot.' },
+    { key:'order',   name:'Built to Order',        accent:T.ink,   body:'No fixed shape by design — if it can be automated, this is where it lives.', dashed:true }
+  ];
+
+  var SCENARIOS = [
+    { tag:'app.halvard.com/activity', title:'Checks before it acts', body:'Cross-references inbox, calendar, and CRM before deciding a client needs a follow-up — three signals have to agree before Halvard drafts anything.' },
+    { tag:'app.halvard.com/jobs', title:'Every job, tracked', body:'Scoping → In progress → Live, visible at a glance for every client — no digging through email threads to find out where things stand.' },
+    { tag:'app.halvard.com/team', title:'Staff, managed', body:'Knows who’s available, who’s on-site, and who’s off today — and routes the next job to the right person automatically.' }
+  ];
+
+  var RECIPES = [
+    { t:'Revive a cold lead', b:'Drafts a low-pressure check-in for leads gone quiet in the CRM.' },
+    { t:'Chase an overdue invoice', b:'Polite, on-brand follow-ups the moment an invoice goes overdue.' },
+    { t:'Fill a last-minute cancellation', b:'Texts the waitlist the moment a booking opens up.' },
+    { t:'Prep tomorrow tonight', b:'Reviews tomorrow’s schedule and preps tasks the night before.' }
+  ];
+
+  var IT_SUPPORT = [
+    { key:'itsupport1', name:'Managed IT & Support', body:'IT service desk, field service, procurement, and mobile device management — a team on call for the day-to-day.' },
+    { key:'itsupport2', name:'Cloud & Infrastructure', body:'Private and public cloud, Microsoft 365, and data centre migration handled end to end.' },
+    { key:'itsupport3', name:'Network & Connectivity', body:'Managed Wi-Fi, secure networking, business internet, and SD-WAN — the backbone everything else runs on.' },
+    { key:'itsupport4', name:'Unified Communications', body:'Teams calling, VoIP, telephony, and video conferencing set up and kept running.' },
+    { key:'itsupport5', name:'Cybersecurity & Compliance', body:'Risk assessment, security hardening, and awareness training that keeps a business audit-ready.' },
+    { key:'itsupport6', name:'Continuity & Consulting', body:'Disaster recovery, IT consulting, digital transformation, and managed print — planned for, not scrambled for.' }
+  ];
+
+  /* ============================================================
+     Sections
+     ============================================================ */
+  var sections = [];
+  function addSection(id, group, navLabel, title, eyebrow, bodyBuilder){
+    sections.push({id:id, group:group, navLabel:navLabel, title:title, eyebrow:eyebrow, bodyBuilder:bodyBuilder});
+  }
+
+  addSection('foundation','Identity','Foundation','Foundation','Who we are', function(el){
+    el.innerHTML =
+      '<div class="section-head"><h2>Foundation</h2><p>What Halvard is, who it’s for, and the posture it takes — the part that shapes every other decision in this document.</p></div>'+
+      '<div class="card" style="padding:28px 30px;margin-bottom:20px;">'+
+        '<p style="font-size:15.5px;line-height:1.7;">Halvard designs, builds, and runs the automated systems behind a small business’s leads, follow-ups, invoicing, landing pages, and daily operations. Where the automation stops and infrastructure begins — help desk, cloud, networking, cybersecurity — Halvard refers out to trusted IT support rather than delivering it directly. That referral stays unbranded: no partner name or logo appears anywhere on the site.</p>'+
+      '</div>'+
+      '<div class="grid grid-3">'+
+        traitCard('Grounded','No hype language, no jargon for jargon’s sake. A system either saves a business time or it doesn’t get built.')+
+        traitCard('Precise','Says exactly what it will do before it does it. Every automated action is drafted first — nothing sends itself without saying so.')+
+        traitCard('Quietly confident','Calm, working systems — not chatbot gimmicks or countdown-timer urgency. The product does the convincing.')+
+      '</div>';
+  });
+
+  function traitCard(name, body){
+    return '<div class="card" style="padding:22px;"><p style="font-family:var(--font-display);font-weight:500;letter-spacing:0.02em;font-size:17px;">'+name+'</p><p style="margin-top:8px;font-size:13.5px;line-height:1.6;color:var(--text-muted);">'+body+'</p></div>';
+  }
+
+  addSection('logo','Identity','Logo & Assets','Logo & downloadable assets','The mark', function(el){
+    el.innerHTML =
+      '<div class="section-head"><h2>Logo &amp; downloadable assets</h2><p>Every file below renders live in your browser from the same code as the site, then downloads straight to your device — nothing here is a pre-exported stock file.</p></div>'+
+      '<div class="logo-story">'+
+        '<div><span class="eyebrow"><span class="dot"></span>The mark</span><p>Two bars, bridged by a diagonal and a single signal-green node — the moment two disconnected systems get wired together. It’s a relay, not just a letterform: read it as an “H,” or read it as the join itself.</p></div>'+
+        '<div class="mark-canvas" id="markStory"></div>'+
+      '</div>'+
+      '<div class="grid grid-4" id="markGrid" style="margin-bottom:20px;"></div>'+
+      '<div class="grid grid-3" id="lockupGrid"></div>'+
+      '<div class="rule-callout" style="margin-top:24px;">'+
+        '<b>Clearspace &amp; minimum size.</b> Keep clearspace equal to the width of the center node on every side. Don’t run the icon mark below 20px, or the wordmark below 14px — the diagonal stroke fills in at smaller sizes. Never stretch, rotate, add a drop shadow, or recolor outside the four variants shown here.'+
+      '</div>';
+
+    var story = el.querySelector('#markStory');
+    story.appendChild(markSVGEl('ink', 160));
+
+    var markGrid = el.querySelector('#markGrid');
+    Object.keys(MARK_VARIANTS).forEach(function(key){
+      var v = MARK_VARIANTS[key];
+      var card = document.createElement('div');
+      card.className = 'card asset-card';
+      var preview = document.createElement('div');
+      preview.className = 'asset-preview ' + v.preview;
+      preview.appendChild(markSVGEl(key, 64));
+      card.appendChild(preview);
+      var meta = document.createElement('div');
+      meta.className = 'asset-meta';
+      meta.innerHTML = '<span class="name">'+v.label+' mark</span><span class="use">'+v.use+'</span>';
+      card.appendChild(meta);
+      var row = document.createElement('div');
+      row.className = 'dl-row';
+      var btn = document.createElement('button');
+      btn.className = 'dl-btn';
+      btn.textContent = 'Download SVG';
+      row.appendChild(btn);
+      card.appendChild(row);
+      var status = document.createElement('div');
+      status.className = 'dl-status';
+      card.appendChild(status);
+      markGrid.appendChild(card);
+      bindSVGDownload(btn, key);
+    });
+
+    var lockupGrid = el.querySelector('#lockupGrid');
+    var lockups = [
+      { kind:'primary', name:'Primary lockup', use:'Light backgrounds — default everywhere', preview:'on-paper', icon:'ink', textColor:T.ink, file:'halvard-lockup-primary.png' },
+      { kind:'reversed', name:'Reversed lockup', use:'On ink or photographic backgrounds', preview:'on-ink', icon:'reversed', textColor:T.paper, file:'halvard-lockup-reversed.png' },
+      { kind:'wordmark', name:'Wordmark only', use:'When the mark runs separately, or space is tight', preview:'on-paper', icon:null, textColor:T.ink, file:'halvard-wordmark.png' }
+    ];
+    lockups.forEach(function(l){
+      var card = document.createElement('div');
+      card.className = 'card asset-card';
+      var preview = document.createElement('div');
+      preview.className = 'asset-preview ' + l.preview;
+      preview.style.gap = '10px';
+      preview.style.display = 'flex';
+      if (l.icon) preview.appendChild(markSVGEl(l.icon, 34));
+      var word = document.createElement('span');
+      word.textContent = 'Halvard';
+      word.style.fontFamily = 'var(--font-display)';
+      word.style.fontWeight = '500';
+      word.style.letterSpacing = '-0.01em';
+      word.style.fontSize = '20px';
+      word.style.color = l.textColor;
+      preview.appendChild(word);
+      card.appendChild(preview);
+      var meta = document.createElement('div');
+      meta.className = 'asset-meta';
+      meta.innerHTML = '<span class="name">'+l.name+'</span><span class="use">'+l.use+'</span>';
+      card.appendChild(meta);
+      var row = document.createElement('div');
+      row.className = 'dl-row';
+      var btn = document.createElement('button');
+      btn.className = 'dl-btn';
+      btn.textContent = 'Download PNG';
+      row.appendChild(btn);
+      card.appendChild(row);
+      var status = document.createElement('div');
+      status.className = 'dl-status';
+      card.appendChild(status);
+      lockupGrid.appendChild(card);
+      bindPNGDownload(btn, l.kind, l.file);
+    });
+  });
+
+  addSection('color','System','Color','Color','Two colors, by decision', function(el){
+    el.innerHTML =
+      '<div class="section-head"><h2>Color</h2><p>The system was cut down from five accent colors to two, on purpose. If a screen needs a third color to make sense, that’s a sign the layout needs work, not the palette.</p></div>'+
+      '<div class="grid grid-3" id="coreSwatches"></div>'+
+      '<div class="rule-callout"><b>Signal green is reserved for positive or money-related states</b> — a paid invoice, a live system, a success confirmation. Everywhere else defaults to ink. There is no third UI color; text, borders, and backgrounds only ever draw from ink, paper, canvas, and surface-2.</div>'+
+      '<div class="section-head" style="margin-top:44px;margin-bottom:20px;"><span class="eyebrow"><span class="dot"></span>Functional layer</span><h2 style="font-size:20px;margin-top:8px;">Icon accents</h2><p style="margin-top:8px;">One muted hue per pillar, applied only to icon tiles — never to text, buttons, or backgrounds. It exists purely so six sections of “what we automate” read as six distinct things at a glance.</p></div>'+
+      '<div class="grid grid-4" id="iconSwatches"></div>';
+
+    var core = [
+      { name:'Ink', hex:T.ink, use:'Primary text, UI chrome, default icon color' },
+      { name:'Paper', hex:T.paper, use:'Page background' },
+      { name:'Canvas', hex:T.canvas, use:'Card and panel surfaces' },
+      { name:'Surface-2', hex:T.surface2, use:'Secondary panel tint, subtle separation' },
+      { name:'Signal', hex:T.signal, use:'The one accent — buttons, positive states' },
+      { name:'Signal-ink', hex:T.signalInk, use:'Signal text on light backgrounds' }
+    ];
+    var coreEl = el.querySelector('#coreSwatches');
+    core.forEach(function(c){ coreEl.appendChild(swatchCard(c.name, c.hex, c.use)); });
+
+    var icons = [
+      { name:'Clay', hex:T.clay, use:'Pipeline & Leads' },
+      { name:'Denim', hex:T.denim, use:'Follow-ups & Email' },
+      { name:'Plum', hex:T.plum, use:'Landing Pages & Sites' },
+      { name:'Moss', hex:T.moss, use:'Daily Operations' },
+      { name:'Slate', hex:T.slate, use:'IT Support (separate domain)' },
+      { name:'Signal', hex:T.signal, use:'Invoicing & Payments (reused)' }
+    ];
+    var iconEl = el.querySelector('#iconSwatches');
+    icons.forEach(function(c){ iconEl.appendChild(swatchCard(c.name, c.hex, c.use, true)); });
+  });
+
+  function swatchCard(name, hex, use, small){
+    var card = document.createElement('div');
+    card.className = 'card swatch';
+    var fill = document.createElement('div');
+    fill.className = 'swatch-fill';
+    if (small) fill.style.height = '64px';
+    fill.style.background = hex;
+    card.appendChild(fill);
+    var body = document.createElement('div');
+    body.className = 'swatch-body';
+    body.innerHTML = '<div class="name">'+name+'</div><div class="hex">'+hex.toUpperCase()+'</div><div class="use">'+use+'</div>';
+    card.appendChild(body);
+    return card;
+  }
+
+  addSection('type','System','Type','Type','Schibsted Grotesk, deliberately', function(el){
+    el.innerHTML =
+      '<div class="section-head"><h2>Type</h2><p>Every display heading site-wide moved from bold/extrabold with tight tracking to <b>medium weight with open tracking</b> — matching the weight and letter-spacing behavior of Zapier’s marketing headlines, which use the commercial typeface Degular Display.</p></div>'+
+      '<div class="rule-callout" style="margin-bottom:24px;"><b>Why the typeface didn’t change:</b> Degular Display is a paid, licensed font (Colophon Foundry) with no free distribution — embedding it without a license isn’t an option. Schibsted Grotesk stays as the display face — it’s already in the same rounded, low-contrast grotesque family — tuned to the same weight (500) and tracking (+0.02em) instead.</div>'+
+      '<div class="card type-sample" style="margin-bottom:24px;">'+
+        '<span class="tag">Display — Schibsted Grotesk</span>'+
+        '<div class="big">Automate the busywork.</div>'+
+        '<div class="spec">weight 500 · letter-spacing +0.02em · used for every H1–H4 site-wide</div>'+
+      '</div>'+
+      '<div class="type-compare">'+
+        '<div class="card before"><span class="label">Before</span><div class="headline">Six pillars.</div><div class="spec" style="margin-top:8px;">weight 800 · tracking −0.02em</div></div>'+
+        '<div class="card after"><span class="label">After — current</span><div class="headline">Six pillars.</div><div class="spec" style="margin-top:8px;">weight 500 · tracking +0.02em</div></div>'+
+      '</div>'+
+      '<div class="grid grid-2" style="margin-top:24px;">'+
+        '<div class="card" style="padding:24px;"><span class="tag">Body — Inter</span><p style="font-size:15px;line-height:1.65;margin-top:10px;color:var(--text-muted);">Halvard flags what needs your attention — an unhappy client, a stalled quote, a payment that just landed — and drafts the next step so you just have to say go.</p><div class="spec">weight 400 body · weight 600 for buttons &amp; emphasis</div></div>'+
+        '<div class="card" style="padding:24px;"><span class="tag">Mono — IBM Plex Mono</span><p style="font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-top:10px;color:var(--text-muted);">What we automate · Quoted, not listed · Proactive by default</p><div class="spec">eyebrows, badges, timestamps — never running text</div></div>'+
+      '</div>';
+  });
+
+  addSection('icons','System','Iconography','Iconography','Illustration, not emoji', function(el){
+    el.innerHTML =
+      '<div class="section-head"><h2>Iconography</h2><p>Concept icons — the ones explaining what a pillar or recipe does — moved from emoji to a consistent outline set. Real product logos (Gmail, Stripe, HubSpot, and so on) are a separate system and always use their official marks.</p></div>'+
+      '<div class="grid grid-2">'+
+        '<div class="card" style="padding:22px;"><span class="eyebrow"><span class="dot" style="background:var(--clay);"></span>Concept icons</span><div style="margin-top:14px;display:flex;flex-direction:column;gap:2px;" id="conceptIcons"></div></div>'+
+        '<div class="card" style="padding:22px;"><span class="eyebrow">Rule</span><p style="margin-top:10px;font-size:14px;line-height:1.65;">1.75px stroke weight, outline style, one muted accent color per pillar tile. Never filled, never duotone, never mixed with emoji on the same page. Brand logos are sourced from their official mark data — never hand-drawn or reinterpreted.</p><div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);"><span class="tag" style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.1em;">Before → after</span><p style="margin-top:8px;font-size:20px;">🎯 &nbsp;→&nbsp; <span style="display:inline-flex;vertical-align:middle;" id="targetIcon"></span></p></div></div>'+
+      '</div>';
+
+    var iconDefs = [
+      { name:'Target', accent:T.clay, path:'M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 16a6 6 0 1 1 6-6a6 6 0 0 1-6 6Zm0-9a3 3 0 1 0 3 3a3 3 0 0 0-3-3Z' },
+      { name:'Mail-check', accent:T.denim, path:null },
+      { name:'Receipt', accent:T.signal, path:null },
+      { name:'Layout-template', accent:T.plum, path:null },
+      { name:'Calendar-clock', accent:T.moss, path:null }
+    ];
+    var wrap = el.querySelector('#conceptIcons');
+    PILLARS.forEach(function(p){
+      var row = document.createElement('div');
+      row.className = 'icon-row';
+      var tile = document.createElement('span');
+      tile.className = 'icon-tile';
+      tile.style.background = hexToRgba(p.accent, 0.1);
+      tile.innerHTML = simpleGlyph(p.key, p.accent);
+      row.appendChild(tile);
+      var label = document.createElement('span');
+      label.className = 'label';
+      label.textContent = p.name;
+      row.appendChild(label);
+      wrap.appendChild(row);
+    });
+    el.querySelector('#targetIcon').innerHTML = simpleGlyph('leads', T.clay, 20);
+  });
+
+  function hexToRgba(hex, a){
+    var n = parseInt(hex.slice(1),16);
+    var r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+    return 'rgba('+r+','+g+','+b+','+a+')';
+  }
+
+  // Minimal hand-built glyphs (outline style, 1.75 stroke) so the doc
+  // has zero external icon dependency while still matching the site's
+  // lucide-react look.
+  function simpleGlyph(key, color, size){
+    size = size || 20;
+    var s = 'stroke="'+color+'" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round"';
+    var shapes = {
+      leads:  '<circle cx="12" cy="12" r="8" '+s+'/><circle cx="12" cy="12" r="3.2" '+s+'/>',
+      follow: '<rect x="3" y="5" width="18" height="14" rx="2" '+s+'/><path d="M3 7l9 6 9-6" '+s+'/>',
+      invoice:'<path d="M6 3h9l3 3v15H6z" '+s+'/><path d="M9 10h6M9 14h6" '+s+'/>',
+      pages:  '<rect x="3" y="4" width="18" height="16" rx="2" '+s+'/><path d="M3 9h18" '+s+'/>',
+      ops:    '<rect x="3" y="5" width="18" height="15" rx="2" '+s+'/><path d="M3 10h18M8 3v4M16 3v4" '+s+'/>',
+      order:  '<path d="M14.7 6.3a4 4 0 0 0-5.6 5.6L4 17l3 3l5.1-5.1a4 4 0 0 0 5.6-5.6l-2.6 2.6l-2-2Z" '+s+'/>',
+      itsupport: '<path d="M4 13a8 8 0 0 1 16 0" '+s+'/><rect x="2.5" y="13" width="4" height="6" rx="1.5" '+s+'/><rect x="17.5" y="13" width="4" height="6" rx="1.5" '+s+'/><path d="M20 19a3 3 0 0 1-3 3h-3" '+s+'/>'
+    };
+    return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24">'+(shapes[key]||shapes.leads)+'</svg>';
+  }
+
+  addSection('whatwedo','Product','What we do','What we automate','Six pillars, three flagship scenarios', function(el){
+    el.innerHTML =
+      '<div class="section-head"><h2>What we automate</h2><p>Everything Halvard ships falls under one of six pillars — the same six used in the nav, the pricing conversation, and the recipe library.</p></div>'+
+      '<div class="grid grid-3" id="pillarGrid" style="margin-bottom:44px;"></div>'+
+      '<div class="section-head" style="margin-bottom:20px;"><span class="eyebrow"><span class="dot"></span>Flagship scenarios</span><h2 style="font-size:20px;margin-top:8px;">The stories the product screens tell</h2><p style="margin-top:8px;">Three concrete moments, illustrated as live-product mockups across the site rather than abstract feature bullets.</p></div>'+
+      '<div class="grid grid-3" id="scenarioGrid" style="margin-bottom:44px;"></div>'+
+      '<div class="section-head" style="margin-bottom:16px;"><span class="eyebrow"><span class="dot"></span>Recipe library</span><h2 style="font-size:20px;margin-top:8px;">Ready-made, not custom-quoted</h2></div>'+
+      '<div class="grid grid-2" id="recipeGrid"></div>';
+
+    var pg = el.querySelector('#pillarGrid');
+    PILLARS.forEach(function(p){
+      var card = document.createElement('div');
+      card.className = 'card pillar-card' + (p.dashed ? ' dashed' : '');
+      card.style.borderLeftColor = p.accent;
+      card.innerHTML =
+        '<span class="icon-tile" style="background:'+hexToRgba(p.accent,0.1)+';">'+simpleGlyph(p.key, p.accent)+'</span>'+
+        '<span class="name">'+p.name+'</span><span class="body">'+p.body+'</span>';
+      pg.appendChild(card);
+    });
+
+    var sg = el.querySelector('#scenarioGrid');
+    SCENARIOS.forEach(function(s){
+      var card = document.createElement('div');
+      card.className = 'card scenario-card';
+      card.innerHTML = '<span class="tag">'+s.tag+'</span><h4>'+s.title+'</h4><p>'+s.body+'</p>';
+      sg.appendChild(card);
+    });
+
+    var rg = el.querySelector('#recipeGrid');
+    RECIPES.forEach(function(r){
+      var chip = document.createElement('div');
+      chip.className = 'recipe-chip';
+      chip.innerHTML = '<div><div class="t">'+r.t+'</div><div class="b">'+r.b+'</div></div>';
+      rg.appendChild(chip);
+    });
+  });
+
+  addSection('itsupport','Product','IT Support','IT Support', 'Referral, not delivery', function(el){
+    el.innerHTML =
+      '<div class="section-head"><h2>IT Support</h2><p>The infrastructure side automation depends on — help desk, cloud, networking, cybersecurity — sits outside what Halvard builds. It gets pointed to trusted support instead, kept deliberately generic: no partner name or logo anywhere on the site.</p></div>'+
+      '<div class="grid grid-3" id="itGrid" style="margin-bottom:20px;"></div>'+
+      '<div class="rule-callout" style="background:'+hexToRgba(T.slate,0.07)+';border-color:'+hexToRgba(T.slate,0.22)+';">'+
+        '<b style="color:'+T.slate+';">One accent, one domain.</b> Unlike the six automation pillars, IT Support doesn’t get a color per category — it’s a single referral, so it carries a single slate accent throughout. If it ever becomes something Halvard delivers directly rather than refers out, it earns its own pillar treatment.'+
+      '</div>';
+
+    var ig = el.querySelector('#itGrid');
+    IT_SUPPORT.forEach(function(c){
+      var card = document.createElement('div');
+      card.className = 'card pillar-card';
+      card.style.borderLeftColor = T.slate;
+      card.innerHTML =
+        '<span class="icon-tile" style="background:'+hexToRgba(T.slate,0.1)+';">'+simpleGlyph('itsupport', T.slate)+'</span>'+
+        '<span class="name">'+c.name+'</span><span class="body">'+c.body+'</span>';
+      ig.appendChild(card);
+    });
+  });
+
+  addSection('voice','Product','Voice','Voice & messaging','Quote-only, said plainly', function(el){
+    el.innerHTML =
+      '<div class="section-head"><h2>Voice &amp; messaging</h2><p>Active voice, concrete claims, no invented urgency. Pricing is never stated as a number anywhere on the site — quote-only is a positioning decision, not an oversight.</p></div>'+
+      '<div class="quote-block reveal">“We sit down with you, learn how your business runs, and quote exactly what’s worth automating.”</div>'+
+      '<div class="say-dont">'+
+        '<div class="card say"><span class="head">Say</span><ul>'+
+          '<li>We quote after we understand your business.</li>'+
+          '<li>Every action is drafted first — review and send, or flip on autopilot.</li>'+
+          '<li>If part of your process doesn’t need automating, we’ll tell you.</li>'+
+        '</ul></div>'+
+        '<div class="card dont"><span class="head">Don’t</span><ul>'+
+          '<li>Plans starting at $X/month.</li>'+
+          '<li>Our AI never makes mistakes.</li>'+
+          '<li>Limited-time offer — act now.</li>'+
+        '</ul></div>'+
+      '</div>';
+  });
+
+  addSection('components','System','Components','Components','Buttons, cards, mockup chrome', function(el){
+    el.innerHTML =
+      '<div class="section-head"><h2>Components</h2><p>The recurring pieces every page is built from.</p></div>'+
+      '<div class="card" style="padding:24px;margin-bottom:16px;"><span class="tag" style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.1em;">Buttons</span><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;"><span class="btn-demo primary">Get Started</span><span class="btn-demo ink">Talk to us</span><span class="btn-demo ghost">See how it works</span></div></div>'+
+      '<div class="grid grid-2" style="margin-bottom:16px;">'+
+        '<div class="card" style="padding:24px;"><span class="tag" style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.1em;">Status — project</span><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">'+
+          statusPill('Scoping', 'rgba(21,23,28,.06)', T.ink)+statusPill('In progress','rgba(21,23,28,.10)',T.ink)+statusPill('Live', hexToRgba(T.signal,0.12), T.signalInk)+statusPill('Paused','rgba(21,23,28,.05)','rgba(21,23,28,.4)')+
+        '</div></div>'+
+        '<div class="card" style="padding:24px;"><span class="tag" style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.1em;">Mockup chrome</span><div class="browser-frame" style="margin-top:14px;"><div class="browser-chrome"><span class="dot" style="background:#FF5F57;"></span><span class="dot" style="background:#FEBC2E;"></span><span class="dot" style="background:#28C840;"></span><span style="margin-left:auto;margin-right:auto;font-size:10.5px;color:var(--text-faint);font-family:var(--font-mono);">app.halvard.com</span></div><div style="height:64px;background:var(--paper);"></div></div></div>'+
+      '</div>';
+  });
+
+  function statusPill(label, bg, color){
+    return '<span class="status-pill" style="background:'+bg+';color:'+color+';">'+label+'</span>';
+  }
+
+  addSection('usage','Reference','Usage notes','Usage notes','What not to do', function(el){
+    var rules = [
+      ['No dark surfaces anywhere.','Every screen, mockup, and marketing page stays on the light paper/canvas ground — this document included.'],
+      ['No pricing figures on the site.','Every price is a quote, given after a conversation — never a number, a "starting at," or a calculator.'],
+      ['No partner branding for IT Support.','The referral stays generic — no logo, name, or link to the referred provider anywhere on the site.'],
+      ['Signal green is a state, not a decoration.','It only ever marks something positive or paid. If it’s not one of those, it’s ink.'],
+      ['Brand logos are always the real mark.','Gmail, Stripe, HubSpot, and the rest come from their official icon data — never hand-drawn, never recolored.'],
+      ['One contact address.','connectwithhalvard@gmail.com is the only public contact point — mailto links, forms, and footers all point to it.']
+    ];
+    el.innerHTML =
+      '<div class="section-head"><h2>Usage notes</h2><p>Short, specific rules — each one is a decision that was actually made while building the site, not a generic brand-book platitude.</p></div>'+
+      '<div class="card rules-list" style="padding:6px 24px;">'+
+        rules.map(function(r,i){
+          return '<div class="rule-item"><span class="num">0'+(i+1)+'</span><div class="txt"><strong>'+r[0]+'</strong><span>'+r[1]+'</span></div></div>';
+        }).join('')+
+      '</div>';
+  });
+
+  /* ============================================================
+     Render sections + nav
+     ============================================================ */
+  var main = document.getElementById('main');
+  var sidebar = document.getElementById('sidebar');
+  var mobileNav = document.getElementById('mobileNav');
+  var lastGroup = null;
+
+  sections.forEach(function(s){
+    var sec = document.createElement('section');
+    sec.id = s.id;
+    sec.className = 'reveal';
+    main.appendChild(sec);
+    s.bodyBuilder(sec);
+
+    if (s.group !== lastGroup){
+      var gl = document.createElement('div');
+      gl.className = 'group-label';
+      gl.textContent = s.group;
+      sidebar.appendChild(gl);
+      lastGroup = s.group;
+    }
+    var a = document.createElement('a');
+    a.href = '#' + s.id;
+    a.textContent = s.navLabel;
+    sidebar.appendChild(a);
+
+    var m = document.createElement('a');
+    m.href = '#' + s.id;
+    m.textContent = s.navLabel;
+    mobileNav.appendChild(m);
+  });
+
+  document.getElementById('coverIcon').appendChild(markSVGEl('ink', 40));
+  document.getElementById('updatedStamp').innerHTML = '<strong>Updated</strong> ' + new Date().toLocaleDateString('en-US', {year:'numeric', month:'long'});
+
+  // Now that every .dl-btn exists in the DOM, it's safe to check
+  // capability availability and disable them if needed.
+  initDownloads();
+
+  /* Scroll-spy for sidebar + reveal-on-scroll */
+  var navLinks = Array.prototype.slice.call(sidebar.querySelectorAll('a'));
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if ('IntersectionObserver' in window){
+    var revealObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function(el){ revealObs.observe(el); });
+
+    var spyObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        var link = sidebar.querySelector('a[href="#'+e.target.id+'"]');
+        if (!link) return;
+        if (e.isIntersecting) {
+          navLinks.forEach(function(l){ l.classList.remove('active'); });
+          link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sections.forEach(function(s){ spyObs.observe(document.getElementById(s.id)); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+})();
+</script>

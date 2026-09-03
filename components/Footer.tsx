@@ -23,6 +23,7 @@ const columns = [
     heading: "Company",
     links: [
       { label: "About", href: "/company" },
+      { label: "IT Support", href: "/it-support" },
       { label: "Twitter", href: "https://twitter.com" },
     ],
   },

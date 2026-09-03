@@ -8,6 +8,7 @@ import Logo from "./Logo";
 
 const navLinks = [
   { label: "Automations", href: "/product" },
+  { label: "IT Support", href: "/it-support" },
   { label: "Integrations", href: "/integrations" },
   { label: "How it works", href: "/how-it-works" },
   { label: "Recipes", href: "/recipes" },

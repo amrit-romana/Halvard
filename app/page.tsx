@@ -220,6 +220,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* IT Support partner teaser */}
+      <section className="py-16 sm:py-24">
+        <div className="container-page">
+          <Reveal>
+            <div className="card grid items-center gap-8 p-8 sm:p-12 lg:grid-cols-[1fr_auto] lg:text-left text-center">
+              <div>
+                <span className="eyebrow">In partnership with Interlinked</span>
+                <h2 className="section-heading-sm mt-5 max-w-lg">
+                  Automation needs infrastructure that works.
+                </h2>
+                <p className="mt-4 max-w-md text-ink/60 lg:mx-0 mx-auto">
+                  For the IT side — help desk, cloud, networking,
+                  cybersecurity — we partner with Interlinked, a Sydney-based
+                  managed IT provider.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-end">
+                <Link href="/it-support" className="btn-ghost">
+                  See IT support
+                </Link>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Pricing teaser */}
       <section className="py-16 sm:py-24">
         <div className="container-page">

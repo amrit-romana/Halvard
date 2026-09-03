@@ -226,14 +226,13 @@ export default function Home() {
           <Reveal>
             <div className="card grid items-center gap-8 p-8 sm:p-12 lg:grid-cols-[1fr_auto] lg:text-left text-center">
               <div>
-                <span className="eyebrow">In partnership with Interlinked</span>
+                <span className="eyebrow">Beyond automation</span>
                 <h2 className="section-heading-sm mt-5 max-w-lg">
                   Automation needs infrastructure that works.
                 </h2>
                 <p className="mt-4 max-w-md text-ink/60 lg:mx-0 mx-auto">
                   For the IT side — help desk, cloud, networking,
-                  cybersecurity — we partner with Interlinked, a Sydney-based
-                  managed IT provider.
+                  cybersecurity — we can point you to trusted support too.
                 </p>
               </div>
               <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-end">

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { CheckCircle2, User, Mail, Building2, MessageSquare, X } from "lucide-react";
 
 const TIME_WINDOWS = ["Morning (9–12)", "Afternoon (12–3)", "Late afternoon (3–5:30)"];
 
@@ -18,12 +19,22 @@ function toDateInputValue(d: Date) {
   return d.toISOString().slice(0, 10);
 }
 
+const fieldIconClass = "pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/30";
+const fieldClass =
+  "w-full rounded-full border border-ink/15 bg-white py-2.5 pl-11 pr-4 text-sm outline-none transition focus:border-signal/50 focus:ring-4 focus:ring-signal/10";
+
 export default function ContactForm() {
+  const searchParams = useSearchParams();
+  const recipe = searchParams.get("recipe");
+
   const [mode, setMode] = useState<"message" | "call">("message");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(
+    recipe ? `I'd like to set up "${recipe}" — tell me more about scope and timing.` : ""
+  );
+  const [showRecipeChip, setShowRecipeChip] = useState(Boolean(recipe));
   const [date, setDate] = useState("");
   const [timeWindow, setTimeWindow] = useState(TIME_WINDOWS[0]);
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
@@ -71,11 +82,13 @@ export default function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="card p-8 text-center">
-        <CheckCircle2 className="mx-auto h-9 w-9 text-signal-ink" strokeWidth={1.75} />
-        <h3 className="mt-4 font-display text-xl font-bold">Got it, thanks.</h3>
-        <p className="mt-2 text-sm text-ink/60">
-          We&apos;ll get back to you within a day
+      <div className="flex flex-col items-center gap-4 p-8 text-center sm:p-10">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-signal/10">
+          <CheckCircle2 className="h-7 w-7 text-signal-ink" strokeWidth={1.75} />
+        </span>
+        <h3 className="font-display text-xl font-bold">Got it, thanks.</h3>
+        <p className="max-w-xs text-sm text-ink/60">
+          We&apos;ll get back to you within a business day
           {mode === "call" && date ? " to confirm the call." : "."}
         </p>
       </div>
@@ -83,7 +96,24 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="card flex flex-col gap-6 p-6 sm:p-8">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-6 sm:p-8">
+      {showRecipeChip && recipe && (
+        <div className="flex items-center gap-2 rounded-2xl border border-signal/25 bg-signal/5 px-4 py-2.5">
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-signal" />
+          <p className="flex-1 text-xs text-ink/70">
+            Asking about <span className="font-semibold text-ink">{recipe}</span>
+          </p>
+          <button
+            type="button"
+            onClick={() => setShowRecipeChip(false)}
+            aria-label="Dismiss"
+            className="shrink-0 text-ink/30 transition hover:text-ink/60"
+          >
+            <X className="h-3.5 w-3.5" strokeWidth={2} />
+          </button>
+        </div>
+      )}
+
       <div className="flex gap-2 rounded-full bg-ink/5 p-1">
         {(["message", "call"] as const).map((m) => (
           <button
@@ -102,31 +132,36 @@ export default function ContactForm() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <label className="text-xs font-medium text-ink/50">Name</label>
-          <input
-            required
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-signal/50"
-          />
+          <div className="relative">
+            <User className={fieldIconClass} strokeWidth={1.75} />
+            <input
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className={fieldClass}
+            />
+          </div>
         </div>
         <div className="flex flex-col gap-1.5">
           <label className="text-xs font-medium text-ink/50">Email</label>
-          <input
-            required
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-signal/50"
-          />
+          <div className="relative">
+            <Mail className={fieldIconClass} strokeWidth={1.75} />
+            <input
+              required
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={fieldClass}
+            />
+          </div>
         </div>
       </div>
       <div className="flex flex-col gap-1.5">
         <label className="text-xs font-medium text-ink/50">Business (optional)</label>
-        <input
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          className="rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-signal/50"
-        />
+        <div className="relative">
+          <Building2 className={fieldIconClass} strokeWidth={1.75} />
+          <input value={company} onChange={(e) => setCompany(e.target.value)} className={fieldClass} />
+        </div>
       </div>
 
       {mode === "call" ? (
@@ -138,7 +173,7 @@ export default function ContactForm() {
               min={minDate}
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-signal/50"
+              className="rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-signal/50 focus:ring-4 focus:ring-signal/10"
             />
           </div>
           <div className="flex flex-col gap-1.5">
@@ -146,7 +181,7 @@ export default function ContactForm() {
             <select
               value={timeWindow}
               onChange={(e) => setTimeWindow(e.target.value)}
-              className="rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-signal/50"
+              className="rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-signal/50 focus:ring-4 focus:ring-signal/10"
             >
               {TIME_WINDOWS.map((w) => (
                 <option key={w} value={w}>
@@ -162,23 +197,29 @@ export default function ContactForm() {
         <label className="text-xs font-medium text-ink/50">
           What&apos;s eating your week?
         </label>
-        <textarea
-          rows={4}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Tell us a bit about your business and what you'd like automated…"
-          className="rounded-2xl border border-ink/15 bg-white px-4 py-3 text-sm outline-none transition focus:border-signal/50"
-        />
+        <div className="relative">
+          <MessageSquare className="pointer-events-none absolute left-4 top-4 h-4 w-4 text-ink/30" strokeWidth={1.75} />
+          <textarea
+            rows={4}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Tell us a bit about your business and what you'd like automated…"
+            className="w-full rounded-2xl border border-ink/15 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-signal/50 focus:ring-4 focus:ring-signal/10"
+          />
+        </div>
       </div>
 
       {error && <p className="text-sm font-semibold text-ink">{error}</p>}
-      <button type="submit" className="btn-primary" disabled={status === "loading"}>
-        {status === "loading"
-          ? "Sending…"
-          : mode === "call"
-            ? "Request this call"
-            : "Send message"}
-      </button>
+      <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
+        <button type="submit" className="btn-primary w-full sm:w-auto" disabled={status === "loading"}>
+          {status === "loading"
+            ? "Sending…"
+            : mode === "call"
+              ? "Request this call"
+              : "Send message"}
+        </button>
+        <p className="text-xs text-ink/40">We usually reply within a business day.</p>
+      </div>
     </form>
   );
 }

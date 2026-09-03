@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Target, MailCheck, Receipt, LayoutTemplate, CalendarClock, Wrench, type LucideIcon } from "lucide-react";
 import BrandIcon from "./BrandIcon";
 import BrowserFrame from "./BrowserFrame";
+import { getAccent } from "./pillarAccent";
 
 type Feature = {
   key: string;
@@ -14,7 +15,6 @@ type Feature = {
   body: string;
   points: string[];
   tools: string[];
-  accent: string;
   dashed?: boolean;
 };
 
@@ -31,7 +31,6 @@ const features: Feature[] = [
       "Drafts a low-pressure re-engagement message",
     ],
     tools: ["HubSpot", "Salesforce", "Pipedrive"],
-    accent: "bg-ink",
   },
   {
     key: "follow-ups",
@@ -45,7 +44,6 @@ const features: Feature[] = [
       "Escalates to you when it needs a judgment call",
     ],
     tools: ["Gmail", "Slack", "WhatsApp"],
-    accent: "bg-ink",
   },
   {
     key: "invoicing",
@@ -59,7 +57,6 @@ const features: Feature[] = [
       "Auto-marks paid invoices, no manual reconciling",
     ],
     tools: ["Xero", "QuickBooks", "Stripe"],
-    accent: "bg-signal",
   },
   {
     key: "landing-pages",
@@ -73,7 +70,6 @@ const features: Feature[] = [
       "Updated the moment copy or pricing changes",
     ],
     tools: ["Google Drive", "Notion", "Calendly"],
-    accent: "bg-ink",
   },
   {
     key: "daily-ops",
@@ -87,7 +83,6 @@ const features: Feature[] = [
       "Preps tomorrow's tasks before you clock in",
     ],
     tools: ["Google Calendar", "Calendly", "Asana"],
-    accent: "bg-ink",
   },
   {
     key: "built-to-order",
@@ -101,7 +96,6 @@ const features: Feature[] = [
       "Reviewed and refined as your business changes",
     ],
     tools: ["Zapier", "Notion", "Trello"],
-    accent: "bg-ink",
     dashed: true,
   },
 ];
@@ -110,6 +104,7 @@ export default function FeatureTabs() {
   const [active, setActive] = useState(features[0].key);
   const feature = features.find((f) => f.key === active)!;
   const Icon = feature.icon;
+  const accent = getAccent(feature.label);
 
   return (
     <div>
@@ -150,10 +145,11 @@ export default function FeatureTabs() {
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
             <span
-              className={`inline-block rounded-full ${feature.accent} px-3 py-1 text-xs font-bold uppercase tracking-wide text-white ${
-                feature.dashed ? "border border-dashed border-white/50" : ""
+              className={`inline-flex items-center gap-1.5 rounded-full ${accent.tint} px-3 py-1 text-xs font-bold uppercase tracking-wide ${accent.text} ${
+                feature.dashed ? "border border-dashed border-current/30" : ""
               }`}
             >
+              <span className={`h-1.5 w-1.5 rounded-full ${accent.solid}`} />
               {feature.label}
             </span>
             <h3 className="section-heading-sm mt-4">{feature.heading}</h3>
@@ -187,15 +183,8 @@ export default function FeatureTabs() {
             <BrowserFrame title={`app.halvard.com/${feature.key}`}>
               <div className="flex min-h-[260px] flex-col justify-center gap-3 bg-canvas p-6">
                 <div className="flex items-center gap-3 rounded-xl2 bg-white p-4 shadow-softer">
-                  <span
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl2 ${
-                      feature.accent === "bg-signal" ? "bg-signal/10" : "bg-ink/8"
-                    }`}
-                  >
-                    <Icon
-                      className={`h-5 w-5 ${feature.accent === "bg-signal" ? "text-signal-ink" : "text-ink"}`}
-                      strokeWidth={1.75}
-                    />
+                  <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl2 ${accent.tint}`}>
+                    <Icon className={`h-5 w-5 ${accent.text}`} strokeWidth={1.75} />
                   </span>
                   <div className="flex-1">
                     <p className="text-sm font-semibold">{feature.heading}</p>
@@ -203,7 +192,7 @@ export default function FeatureTabs() {
                       Running automatically · monitored by Halvard
                     </p>
                   </div>
-                  <span className={`h-2.5 w-2.5 rounded-full ${feature.accent}`} />
+                  <span className={`h-2.5 w-2.5 rounded-full ${accent.solid}`} />
                 </div>
                 {feature.points.slice(0, 2).map((p) => (
                   <div

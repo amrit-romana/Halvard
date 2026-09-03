@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { allRecipes } from "./RecipeCards";
 import { revealItem, RevealGroup } from "./Reveal";
+import { getAccent } from "./pillarAccent";
 
 const tags = ["All", ...Array.from(new Set(allRecipes.map((r) => r.tag)))];
 
@@ -37,6 +39,7 @@ export default function RecipeLibrary() {
       >
         {filtered.map((r) => {
           const Icon = r.icon;
+          const accent = getAccent(r.tag);
           return (
             <motion.div
               key={r.title}
@@ -46,17 +49,24 @@ export default function RecipeLibrary() {
             >
               <div className="flex items-center justify-between">
                 <span
-                  className={`w-fit rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${r.color}`}
+                  className={`w-fit rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${accent.tint} ${accent.text}`}
                 >
                   {r.tag}
                 </span>
-                <Icon className="h-5 w-5 text-ink/70" strokeWidth={1.75} />
+                <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl2 ${accent.tint}`}>
+                  <Icon className={`h-4 w-4 ${accent.text}`} strokeWidth={1.75} />
+                </span>
               </div>
               <h3 className="font-display text-xl font-semibold leading-snug">
                 {r.title}
               </h3>
               <p className="text-sm leading-relaxed text-ink/60">{r.body}</p>
-              <button className="btn-ghost btn-sm mt-2 w-fit">Use this recipe</button>
+              <Link
+                href={`/contact?recipe=${encodeURIComponent(r.title)}`}
+                className="btn-ghost btn-sm mt-2 w-fit"
+              >
+                Use this recipe
+              </Link>
             </motion.div>
           );
         })}

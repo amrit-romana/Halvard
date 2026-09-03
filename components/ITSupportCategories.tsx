@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 import { Headset, Cloud, Wifi, Phone, ShieldCheck, Puzzle, type LucideIcon } from "lucide-react";
 import { revealItem, RevealGroup } from "./Reveal";
 
+const ACCENT_TINT = "bg-[#4A5D72]/10";
+const ACCENT_TEXT = "text-[#4A5D72]";
+
 const categories: { icon: LucideIcon; name: string; body: string }[] = [
   {
     icon: Headset,
@@ -47,10 +50,10 @@ export default function ITSupportCategories() {
             key={c.name}
             variants={revealItem}
             whileHover={{ y: -4 }}
-            className="card flex h-full flex-col gap-3 border-l-4 border-l-ink p-6"
+            className={`card flex h-full flex-col gap-3 border-l-4 p-6 border-l-current ${ACCENT_TEXT}`}
           >
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl2 bg-ink/8">
-              <Icon className="h-5 w-5 text-ink" strokeWidth={1.75} />
+            <span className={`flex h-10 w-10 items-center justify-center rounded-xl2 ${ACCENT_TINT}`}>
+              <Icon className={`h-5 w-5 ${ACCENT_TEXT}`} strokeWidth={1.75} />
             </span>
             <p className="font-display text-base font-bold text-ink">{c.name}</p>
             <p className="text-sm leading-relaxed text-ink/60">{c.body}</p>

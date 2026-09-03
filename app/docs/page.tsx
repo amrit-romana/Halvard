@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Target, MailCheck, Receipt, LayoutTemplate, CalendarClock, Plug } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import { getAccent } from "@/components/pillarAccent";
 
 export const metadata: Metadata = {
   title: "Docs — Halvard",
@@ -96,11 +97,13 @@ export default function DocsPage() {
               </h2>
             </Reveal>
             <ul className="mt-6 flex flex-col gap-3">
-              {capabilities.map((c, i) => (
+              {capabilities.map((c, i) => {
+                const accent = getAccent(c.name);
+                return (
                 <Reveal key={c.name} delay={i * 0.05}>
                   <li className="flex gap-4 rounded-xl2 border border-ink/10 bg-white/60 p-4 shadow-softer">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl2 bg-ink/8">
-                      <c.icon className="h-4 w-4 text-ink" strokeWidth={1.75} />
+                    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl2 ${accent.tint}`}>
+                      <c.icon className={`h-4 w-4 ${accent.text}`} strokeWidth={1.75} />
                     </span>
                     <div>
                       <p className="font-medium">{c.name}</p>
@@ -108,7 +111,8 @@ export default function DocsPage() {
                     </div>
                   </li>
                 </Reveal>
-              ))}
+                );
+              })}
             </ul>
           </div>
 

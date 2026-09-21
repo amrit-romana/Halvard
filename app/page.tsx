@@ -9,6 +9,7 @@ import DashboardMockup from "@/components/DashboardMockup";
 import NotificationStack from "@/components/NotificationStack";
 import PhoneMockup from "@/components/PhoneMockup";
 import CrossCheckMockup from "@/components/CrossCheckMockup";
+import AgentAtWork from "@/components/AgentAtWork";
 import Stats from "@/components/Stats";
 import CTASection from "@/components/CTASection";
 import Reveal from "@/components/Reveal";
@@ -67,6 +68,33 @@ export default function Home() {
           </p>
         </Reveal>
         <Marquee />
+      </section>
+
+      {/* Feature: AI agent, working the queue */}
+      <section className="py-16 sm:py-24">
+        <div className="container-page grid items-center gap-12 lg:grid-cols-2">
+          <Reveal>
+            <span className="eyebrow">
+              <span className="h-1.5 w-1.5 rounded-full bg-signal" />
+              Your AI workforce
+            </span>
+            <h2 className="section-heading-sm mt-5">
+              An employee that never stops working the queue.
+            </h2>
+            <p className="mt-4 max-w-md text-ink/60">
+              Halvard runs as a live AI agent — picking off the repetitive
+              stuff one task at a time, all day, including the parts still
+              stuck in legacy software nobody on your team wants to touch.
+              If it has a login, an agent can probably work inside it.
+            </p>
+            <Link href="/how-it-works" className="btn-ghost mt-6 inline-flex">
+              See an agent in action
+            </Link>
+          </Reveal>
+          <Reveal delay={0.1} y={32}>
+            <AgentAtWork />
+          </Reveal>
+        </div>
       </section>
 
       {/* Automation Pillars */}

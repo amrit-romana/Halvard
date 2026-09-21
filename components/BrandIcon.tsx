@@ -14,14 +14,21 @@ import {
   siTelegram,
   siZapier,
   siCalendly,
+  siSap,
+  siAirtable,
+  siMailchimp,
 } from "simple-icons";
-import { FaSlack, FaSalesforce } from "react-icons/fa6";
+import { FaSlack, FaSalesforce, FaMicrosoft } from "react-icons/fa6";
 
 // Real brand marks via simple-icons (MIT-licensed SVG path data, official
-// hex colors). Slack and Salesforce ask not to be redistributed there, so
-// those two come from Font Awesome's brand icon set instead. Pipedrive
-// isn't published in either — it gets an honest monogram, not a guess at
-// their mark.
+// hex colors). Slack, Salesforce, and Microsoft ask not to be
+// redistributed there, so those come from Font Awesome's brand icon set
+// instead. Pipedrive isn't published in either — it gets an honest
+// monogram, not a guess at their mark.
+//
+// SAP, Microsoft (Excel/Outlook), and Airtable are here deliberately —
+// alongside the modern SaaS tools, Halvard also works inside the older,
+// clunkier systems a lot of businesses are still actually running on.
 const simpleIconMap: Record<string, (typeof siGmail)> = {
   Gmail: siGmail,
   "Google Calendar": siGooglecalendar,
@@ -38,11 +45,15 @@ const simpleIconMap: Record<string, (typeof siGmail)> = {
   Telegram: siTelegram,
   Zapier: siZapier,
   Calendly: siCalendly,
+  SAP: siSap,
+  Airtable: siAirtable,
+  Mailchimp: siMailchimp,
 };
 
 const reactIconMap: Record<string, { Icon: typeof FaSlack; bg: string }> = {
   Slack: { Icon: FaSlack, bg: "#4A154B" },
   Salesforce: { Icon: FaSalesforce, bg: "#00A1E0" },
+  "Microsoft 365": { Icon: FaMicrosoft, bg: "#5E5E5E" },
 };
 
 export default function BrandIcon({
@@ -98,8 +109,31 @@ export default function BrandIcon({
   );
 }
 
+// Interleaved on purpose — Gmail/Calendar/Sheets/Drive are only 4 of 21
+// here, but grouped together they used to read as "Google-only" at a
+// glance. Spreading them out (and mixing in the legacy/enterprise tools)
+// makes the actual breadth visible in the first few frames of the loop.
 export const integrationNames = [
-  ...Object.keys(simpleIconMap),
-  ...Object.keys(reactIconMap),
+  "Gmail",
+  "HubSpot",
+  "SAP",
+  "Slack",
+  "QuickBooks",
+  "Google Calendar",
+  "Zapier",
+  "Salesforce",
+  "Xero",
+  "Microsoft 365",
+  "Stripe",
+  "Notion",
+  "Google Sheets",
+  "Airtable",
+  "WhatsApp",
+  "Trello",
+  "Mailchimp",
+  "Telegram",
+  "Google Drive",
+  "Calendly",
   "Pipedrive",
+  "Asana",
 ];

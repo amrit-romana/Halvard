@@ -54,6 +54,7 @@ export async function POST(req: NextRequest) {
     const confirmation = meetingRequestConfirmation({ name });
     await sendEmail({
       to: email,
+      replyTo: NOTIFY_TO,
       subject: confirmation.subject,
       text: confirmation.text,
       html: confirmation.html,

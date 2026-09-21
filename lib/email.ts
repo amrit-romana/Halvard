@@ -2,12 +2,14 @@ import "server-only";
 import { Resend } from "resend";
 import { prisma } from "./db";
 
-// Note: Resend requires sending from a domain you've verified with them —
-// a plain gmail.com address will be rejected once RESEND_API_KEY is set.
-// Until then, EMAIL_FROM is only used for the console/EmailLog dev fallback.
-const FROM = process.env.EMAIL_FROM ?? "Halvard <info@halvard.com.au>";
+// Send FROM a dedicated address on the verified domain — deliberately NOT
+// info@halvard.com.au. Enquiry notifications are addressed TO info@, and a
+// message whose From and To are the same address gets dropped or misfiled
+// by most mail servers (self-send). A distinct sender avoids that; replies
+// are routed back to info@ via reply-to.
+const FROM = process.env.EMAIL_FROM ?? "Halvard <notifications@halvard.com.au>";
 
-// Where new enquiries land. Overridable, defaults to the official inbox.
+// Where new enquiries land, and where customer replies are routed.
 export const NOTIFY_TO = process.env.CONTACT_NOTIFY_TO ?? "info@halvard.com.au";
 
 export async function sendEmail({

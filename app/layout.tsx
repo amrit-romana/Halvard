@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
-import { Inter, Schibsted_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import { Manrope, Instrument_Serif, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const inter = Inter({
+// Body/UI face — Manrope. Clean, warm, neutral.
+const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const schibsted = Schibsted_Grotesk({
+// Display face — Instrument Serif, editorial and large. Weight 400 only.
+const instrument = Instrument_Serif({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  weight: ["500", "600", "700", "800"],
+  weight: ["400"],
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -43,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${schibsted.variable} ${plexMono.variable}`}>
+    <html lang="en" className={`${manrope.variable} ${instrument.variable} ${plexMono.variable}`}>
       <body className="relative flex min-h-screen flex-col overflow-x-clip font-sans bg-paper text-ink antialiased">
         <Header />
         <main className="flex-1">{children}</main>

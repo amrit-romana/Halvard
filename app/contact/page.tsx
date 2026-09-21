@@ -24,7 +24,7 @@ const signals = [
   },
   {
     icon: Mail,
-    title: "connectwithhalvard@gmail.com",
+    title: "info@halvard.com.au",
     body: "Prefer email? That reaches us directly too.",
   },
 ];
@@ -36,10 +36,7 @@ export default function ContactPage() {
         <HeroBlobs />
         <div className="container-page">
           <Reveal>
-            <span className="eyebrow">
-              <span className="h-1.5 w-1.5 rounded-full bg-signal" />
-              Get in touch
-            </span>
+            <span className="eyebrow">Get in touch</span>
             <h1 className="section-heading mx-auto mt-5 max-w-2xl">
               Tell us what&apos;s eating your week.
             </h1>

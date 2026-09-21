@@ -99,7 +99,6 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-6 sm:p-8">
       {showRecipeChip && recipe && (
         <div className="flex items-center gap-2 rounded-2xl border border-signal/25 bg-signal/5 px-4 py-2.5">
-          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-signal" />
           <p className="flex-1 text-xs text-ink/70">
             Asking about <span className="font-semibold text-ink">{recipe}</span>
           </p>

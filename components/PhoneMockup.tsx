@@ -144,11 +144,9 @@ export default function PhoneMockup() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="mr-auto flex items-center gap-1 rounded-2xl rounded-tl-sm bg-white px-4 py-3 shadow-softer"
+                  className="mr-auto rounded-2xl rounded-tl-sm bg-white px-4 py-2.5 text-xs italic text-ink/40 shadow-softer"
                 >
-                  <span className="dot h-1.5 w-1.5 rounded-full bg-ink/40" />
-                  <span className="dot h-1.5 w-1.5 rounded-full bg-ink/40" />
-                  <span className="dot h-1.5 w-1.5 rounded-full bg-ink/40" />
+                  typing…
                 </motion.div>
               )}
             </AnimatePresence>
@@ -167,8 +165,8 @@ export default function PhoneMockup() {
         {scenarios.map((s, i) => (
           <span
             key={s.label}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === scenarioIndex ? "w-5 bg-signal" : "w-1.5 bg-ink/15"
+            className={`h-0.5 rounded-full transition-all duration-300 ${
+              i === scenarioIndex ? "w-6 bg-signal" : "w-3 bg-ink/15"
             }`}
           />
         ))}

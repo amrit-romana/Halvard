@@ -59,16 +59,15 @@ export default function AgentAtWork() {
   }, [active]);
 
   return (
-    <BrowserFrame title="app.halvard.com/agent">
+    <BrowserFrame title="app.halvard.com/automations">
       <div className="flex flex-col gap-4 bg-canvas p-5 sm:p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-signal" />
+            <span className="rounded-md bg-signal/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-signal-ink">
+              Live
             </span>
             <span className="text-xs font-semibold text-ink">
-              AI Agent &middot; always on
+              Automations &middot; always running
             </span>
           </div>
           <motion.span
@@ -128,7 +127,6 @@ export default function AgentAtWork() {
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="flex items-center gap-2.5 rounded-xl2 border border-ink/8 bg-white/60 px-3.5 py-2.5"
               >
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-ink/20" />
                 <span className="truncate text-xs text-ink/45">{t.text}</span>
               </motion.div>
             ))}

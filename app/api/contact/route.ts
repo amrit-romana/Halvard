@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, NOTIFY_TO } from "@/lib/email";
 import { meetingRequestConfirmation } from "@/lib/emailTemplates";
 
 export async function POST(req: NextRequest) {
@@ -20,8 +20,36 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  const { subject, text, html } = meetingRequestConfirmation({ name });
-  await sendEmail({ to: email, subject, text, html });
+  // Confirm to the person who reached out.
+  const confirmation = meetingRequestConfirmation({ name });
+  await sendEmail({
+    to: email,
+    subject: confirmation.subject,
+    text: confirmation.text,
+    html: confirmation.html,
+  });
+
+  // Notify the Halvard inbox, with reply-to set to the enquirer so a
+  // reply goes straight back to them.
+  const lines = [
+    `New enquiry from ${name} <${email}>`,
+    company ? `Business: ${company}` : null,
+    preferredAt ? `Preferred call time: ${preferredAt}` : null,
+    "",
+    message || "(no message)",
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  await sendEmail({
+    to: NOTIFY_TO,
+    replyTo: email,
+    subject: `New enquiry — ${name}${company ? ` (${company})` : ""}`,
+    text: lines,
+    html: `<pre style="font-family:ui-monospace,monospace;white-space:pre-wrap">${lines
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")}</pre>`,
+  });
 
   return NextResponse.json({ meeting });
 }

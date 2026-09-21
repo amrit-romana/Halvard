@@ -145,11 +145,10 @@ export default function FeatureTabs() {
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
             <span
-              className={`inline-flex items-center gap-1.5 rounded-full ${accent.tint} px-3 py-1 text-xs font-bold uppercase tracking-wide ${accent.text} ${
+              className={`inline-flex items-center rounded-full ${accent.tint} px-3 py-1 text-xs font-bold uppercase tracking-wide ${accent.text} ${
                 feature.dashed ? "border border-dashed border-current/30" : ""
               }`}
             >
-              <span className={`h-1.5 w-1.5 rounded-full ${accent.solid}`} />
               {feature.label}
             </span>
             <h3 className="section-heading-sm mt-4">{feature.heading}</h3>
@@ -192,7 +191,6 @@ export default function FeatureTabs() {
                       Running automatically · monitored by Halvard
                     </p>
                   </div>
-                  <span className={`h-2.5 w-2.5 rounded-full ${accent.solid}`} />
                 </div>
                 {feature.points.slice(0, 2).map((p) => (
                   <div

@@ -11,18 +11,23 @@ const config: Config = {
     extend: {
       opacity: fullOpacityScale,
       colors: {
-        // The full palette, deliberately: black, signal green, and the
-        // paper/background neutrals. No other accent colors in the system.
-        ink: "#15171C",
-        paper: "#F5F3ED",
+        // Warm editorial palette: near-black ink on white, stone neutrals,
+        // and warm sun/ember accents. Token names kept stable so every
+        // component picks up the new values without rename churn.
+        ink: "#1A1A1A",
+        paper: "#FFFFFF",
         canvas: "#FFFFFF",
-        "surface-2": "#ECE9DF",
-        signal: "#0A6B4F",
-        "signal-ink": "#073F2E",
+        "surface-2": "#F5F2EC",
+        stone: "#57534E",
+        // "signal" is the single warm accent used for small positive marks
+        // and highlights (was green; now Vellum-style ember/sun).
+        signal: "#E9642F",
+        "signal-ink": "#B84318",
+        sun: "#E9C91A",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "Inter", "sans-serif"],
-        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       borderRadius: {

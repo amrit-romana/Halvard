@@ -10,10 +10,9 @@ export default function BrowserFrame({
   return (
     <div className="overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-lift">
       <div className="flex items-center gap-3 border-b border-ink/10 bg-canvas px-4 py-2.5">
-        <div className="flex gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
+        <div className="flex gap-1">
+          <span className="h-0.5 w-3 rounded-full bg-ink/15" />
+          <span className="h-0.5 w-3 rounded-full bg-ink/15" />
         </div>
         <div className="mx-auto flex items-center gap-1.5 rounded-full bg-ink/5 px-3 py-1 text-[11px] text-ink/40">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none">

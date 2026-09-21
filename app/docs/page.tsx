@@ -147,10 +147,10 @@ export default function DocsPage() {
                 <p className="text-sm text-ink/70">
                   Need help? Reach us at{" "}
                   <a
-                    href="mailto:connectwithhalvard@gmail.com"
+                    href="mailto:info@halvard.com.au"
                     className="font-medium text-ink underline underline-offset-4"
                   >
-                    connectwithhalvard@gmail.com
+                    info@halvard.com.au
                   </a>
                   .
                 </p>

@@ -36,7 +36,6 @@ export default function DashboardMockup() {
                 <p className="truncate text-sm font-medium text-ink">{item.task}</p>
                 <p className="text-xs text-ink/45">{item.cadence}</p>
               </div>
-              <span className="h-2 w-2 shrink-0 rounded-full bg-signal" />
             </motion.div>
           ))}
         </div>

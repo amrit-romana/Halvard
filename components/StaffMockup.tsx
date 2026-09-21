@@ -11,11 +11,6 @@ const staff = [
   { name: "Tomas Vidal", role: "Site technician", status: "Off today", job: null },
 ];
 
-const statusStyle: Record<string, string> = {
-  Available: "bg-signal",
-  "On a job": "bg-ink",
-  "Off today": "bg-ink/25",
-};
 
 export default function StaffMockup() {
   return (
@@ -40,8 +35,7 @@ export default function StaffMockup() {
               <p className="truncate text-sm font-semibold text-ink">{s.name}</p>
               <p className="truncate text-[11px] text-ink/50">{s.job ?? s.role}</p>
             </div>
-            <div className="flex shrink-0 items-center gap-1.5">
-              <span className={`h-1.5 w-1.5 rounded-full ${statusStyle[s.status]}`} />
+            <div className="flex shrink-0 items-center">
               <span className="text-[11px] font-medium text-ink/55">{s.status}</span>
             </div>
           </motion.div>

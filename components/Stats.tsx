@@ -7,7 +7,7 @@ import { RevealGroup, revealItem } from "./Reveal";
 const stats = [
   { value: 12000, suffix: "+", label: "tasks handled weekly", decimals: 0 },
   { value: 4.3, suffix: " min", label: "average response time", decimals: 1 },
-  { value: 22, suffix: "", label: "integrations supported", decimals: 0 },
+  { value: 85, suffix: "+", label: "integrations supported", decimals: 0 },
   { value: 500, suffix: "+", label: "small businesses onboard", decimals: 0 },
 ];
 

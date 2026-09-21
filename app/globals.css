@@ -7,14 +7,12 @@ html {
 }
 
 body {
-  background-color: #f5f3ed;
-  color: #15171c;
-  background-image: radial-gradient(rgba(21, 23, 28, 0.05) 1px, transparent 1px);
-  background-size: 22px 22px;
+  background-color: #ffffff;
+  color: #1a1a1a;
 }
 
 ::selection {
-  background-color: #0a6b4f;
+  background-color: #e9642f;
   color: #ffffff;
 }
 
@@ -27,7 +25,7 @@ body {
 }
 
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-full bg-signal px-6 py-3 text-sm font-semibold text-white shadow-soft transition-all duration-200 ease-signal hover:-translate-y-0.5 hover:shadow-lift active:translate-y-0;
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white shadow-soft transition-all duration-200 ease-signal hover:-translate-y-0.5 hover:shadow-lift active:translate-y-0;
 }
 
 .btn-ink {
@@ -43,23 +41,23 @@ body {
 }
 
 .section-heading {
-  @apply font-display text-4xl font-medium leading-[0.95] tracking-[0.02em] sm:text-5xl md:text-6xl;
+  @apply font-display text-5xl font-normal leading-[1.02] tracking-[-0.01em] sm:text-6xl md:text-7xl;
 }
 
 .section-heading-sm {
-  @apply font-display text-3xl font-medium leading-[1.05] tracking-[0.02em] sm:text-4xl;
+  @apply font-display text-4xl font-normal leading-[1.05] tracking-[-0.01em] sm:text-5xl;
 }
 
-/* Every font-display element gets the same slight positive tracking,
-   matching the reference site's display type — set globally here so
-   the scattered one-off heading classNames across the app pick it up
-   without each needing an explicit tracking utility. */
+/* Instrument Serif — editorial display face. Weight is always 400; the
+   large sizes carry the presence. Slight negative tracking only. */
 .font-display {
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
 }
 
+/* Plain uppercase label — no pill, no leading dot. Sits quietly above
+   a heading the way the reference site sets its section labels. */
 .eyebrow {
-  @apply inline-flex items-center gap-2 rounded-full border border-ink/10 bg-white/70 px-4 py-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-ink/50 shadow-softer;
+  @apply inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-stone;
 }
 
 .card {

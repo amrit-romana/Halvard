@@ -5,24 +5,36 @@ import { prisma } from "./db";
 // Note: Resend requires sending from a domain you've verified with them —
 // a plain gmail.com address will be rejected once RESEND_API_KEY is set.
 // Until then, EMAIL_FROM is only used for the console/EmailLog dev fallback.
-const FROM = process.env.EMAIL_FROM ?? "Halvard <connectwithhalvard@gmail.com>";
+const FROM = process.env.EMAIL_FROM ?? "Halvard <info@halvard.com.au>";
+
+// Where new enquiries land. Overridable, defaults to the official inbox.
+export const NOTIFY_TO = process.env.CONTACT_NOTIFY_TO ?? "info@halvard.com.au";
 
 export async function sendEmail({
   to,
   subject,
   html,
   text,
+  replyTo,
 }: {
   to: string;
   subject: string;
   html: string;
   text: string;
+  replyTo?: string;
 }) {
   const apiKey = process.env.RESEND_API_KEY;
 
   if (apiKey) {
     const resend = new Resend(apiKey);
-    await resend.emails.send({ from: FROM, to, subject, html, text });
+    await resend.emails.send({
+      from: FROM,
+      to,
+      subject,
+      html,
+      text,
+      ...(replyTo ? { replyTo } : {}),
+    });
     await prisma.emailLog.create({
       data: { to, subject, body: text, sentVia: "resend" },
     });

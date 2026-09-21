@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Reveal from "./Reveal";
+import Orbs from "./Orbs";
 
 export default function CTASection({
   heading = "Ready to automate the busywork?",
@@ -15,12 +16,10 @@ export default function CTASection({
   return (
     <section className="py-16 sm:py-24">
       <div className="container-page">
-        <div className="rounded-xl4 border border-ink/10 bg-white/70 px-6 py-16 text-center sm:px-16 sm:py-20">
+        <div className="relative overflow-hidden rounded-xl4 border border-ink/10 bg-surface-2/50 px-6 py-16 text-center sm:px-16 sm:py-20">
+          <Orbs />
           <Reveal>
-            <span className="eyebrow">
-              <span className="h-1.5 w-1.5 rounded-full bg-signal" />
-              AI Automation Studio
-            </span>
+            <span className="eyebrow">AI Automation Studio</span>
             <h2 className="section-heading-sm mx-auto mt-6 max-w-xl">{heading}</h2>
             <p className="mx-auto mt-4 max-w-md text-ink/60">{body}</p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

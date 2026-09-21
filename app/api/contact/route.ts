@@ -20,17 +20,11 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  // Confirm to the person who reached out.
-  const confirmation = meetingRequestConfirmation({ name });
-  await sendEmail({
-    to: email,
-    subject: confirmation.subject,
-    text: confirmation.text,
-    html: confirmation.html,
-  });
+  // The enquiry is already saved above, so email failures must never lose
+  // it or 500 the form. Each send is best-effort and independent — a
+  // failed customer confirmation must not block the internal notification.
 
-  // Notify the Halvard inbox, with reply-to set to the enquirer so a
-  // reply goes straight back to them.
+  // Notify the Halvard inbox first (most important), reply-to the enquirer.
   const lines = [
     `New enquiry from ${name} <${email}>`,
     company ? `Business: ${company}` : null,
@@ -41,15 +35,32 @@ export async function POST(req: NextRequest) {
     .filter(Boolean)
     .join("\n");
 
-  await sendEmail({
-    to: NOTIFY_TO,
-    replyTo: email,
-    subject: `New enquiry — ${name}${company ? ` (${company})` : ""}`,
-    text: lines,
-    html: `<pre style="font-family:ui-monospace,monospace;white-space:pre-wrap">${lines
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")}</pre>`,
-  });
+  try {
+    await sendEmail({
+      to: NOTIFY_TO,
+      replyTo: email,
+      subject: `New enquiry — ${name}${company ? ` (${company})` : ""}`,
+      text: lines,
+      html: `<pre style="font-family:ui-monospace,monospace;white-space:pre-wrap">${lines
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")}</pre>`,
+    });
+  } catch (err) {
+    console.error("[contact] notification email failed:", err);
+  }
+
+  // Confirm to the person who reached out (best-effort).
+  try {
+    const confirmation = meetingRequestConfirmation({ name });
+    await sendEmail({
+      to: email,
+      subject: confirmation.subject,
+      text: confirmation.text,
+      html: confirmation.html,
+    });
+  } catch (err) {
+    console.error("[contact] confirmation email failed:", err);
+  }
 
   return NextResponse.json({ meeting });
 }

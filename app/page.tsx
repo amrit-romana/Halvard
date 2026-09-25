@@ -3,7 +3,6 @@ import Marquee from "@/components/Marquee";
 import PillarGrid from "@/components/PillarGrid";
 import RecipeCards from "@/components/RecipeCards";
 import PricingProcess from "@/components/PricingProcess";
-import Testimonials from "@/components/Testimonials";
 import DashboardMockup from "@/components/DashboardMockup";
 import NotificationStack from "@/components/NotificationStack";
 import PhoneMockup from "@/components/PhoneMockup";
@@ -195,19 +194,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 sm:py-24">
-        <div className="container-page">
-          <Reveal className="mx-auto max-w-2xl text-center">
-            <h2 className="section-heading-sm">
-              Small businesses running on Halvard.
-            </h2>
-          </Reveal>
-          <div className="mt-14">
-            <Testimonials />
-          </div>
-        </div>
-      </section>
 
       {/* Pricing */}
       <section className="py-16 sm:py-24">

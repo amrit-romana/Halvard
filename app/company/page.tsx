@@ -75,22 +75,6 @@ export default function CompanyPage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-24">
-        <div className="container-page">
-          <Reveal>
-            <div className="card flex flex-col items-center gap-4 p-10 text-center sm:p-16">
-              <h2 className="section-heading-sm max-w-xl">
-                Placeholder team section.
-              </h2>
-              <p className="max-w-md text-ink/60">
-                Replace this with real founder/team bios and photos before
-                launch. For now, this is a structural placeholder.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
       <CTASection
         heading="Want to partner with us?"
         body="Reach out and we'll get back to you within a day."

@@ -16,8 +16,16 @@ export default function PrivacyPage() {
           </h1>
           <div className="mt-6 rounded-xl3 border border-ink/10 bg-white/60 p-6 shadow-softer">
             <p className="text-sm leading-relaxed text-ink/60">
-              Placeholder — replace with Halvard&apos;s actual privacy
-              policy before launch.
+              Our full Privacy Policy is being finalised. In the meantime,
+              if you have any questions about how we handle your data,
+              email us at{" "}
+              <a
+                href="mailto:info@halvard.com.au"
+                className="font-medium text-ink underline underline-offset-4"
+              >
+                info@halvard.com.au
+              </a>
+              .
             </p>
           </div>
         </Reveal>
